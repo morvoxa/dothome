@@ -4,7 +4,7 @@ return {
     opts = {
       servers = {
         -- LSP Standar
-        clangd = { cmd = { "clangd19" } },
+        clangd = {},
         lua_ls = {},
         slint_lsp = {},
         tailwindcss = {},
