@@ -2,7 +2,7 @@ keybinds clear-defaults=true {
     locked {
         bind "Ctrl g" { SwitchToMode "normal"; }
         bind "Alt h" { GoToPreviousTab; }
-        bind "Alt l" { GoToPreviousTab; }
+        bind "Alt l" { GoToNextTab; }
     }
     pane {
         bind "left" { MoveFocus "left"; }
