@@ -42,6 +42,9 @@
     nixfmt
     nixd
     shfmt
+    kdlfmt
+    stylua
+    prettier
 
   ];
 

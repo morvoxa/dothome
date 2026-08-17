@@ -10,6 +10,10 @@ return {
         ["clang-format"] = {
           prepend_args = { "--style=Google" },
         },
+
+        ["kdlfmt"] = {
+          cmd = { "kdlfmt" },
+        },
       },
 
       -- 2. Formatter per Language
@@ -34,6 +38,7 @@ return {
         json = { "prettier" },
         jsonc = { "prettier" },
         markdown = { "prettier" },
+        kdl = { "kdlfmt" },
       },
     },
   },
