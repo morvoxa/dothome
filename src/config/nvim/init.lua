@@ -37,7 +37,7 @@ if vim.g.vscode then
     vscode.action("workbench.view.explorer")
   end, { desc = "Focus File Explorer" })
 
-  vim.keymap.set("n", "<leader>c", function()
+  vim.keymap.set("n", "<leader>bd", function()
     vscode.action("workbench.action.closeActiveEditor")
   end, { desc = "Close File" })
 
