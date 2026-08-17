@@ -45,6 +45,7 @@
     kdlfmt
     stylua
     prettier
+    taplo
 
   ];
 
