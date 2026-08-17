@@ -1,11 +1,13 @@
 {
-    "workbench.startupEditor": "none",
-    "extensions.experimental.affinity": {
-        "asvetliakov.vscode-neovim": 1
-    },
-    "vscode-neovim.compositeKeys": {
-        "jk": {
-            "command": "vscode-neovim.escape",
-        },
-    },
+  "workbench.startupEditor": "none",
+  "extensions.experimental.affinity": {
+    "asvetliakov.vscode-neovim": 1
+  },
+  "vscode-neovim.compositeKeys": {
+    "jk": {
+      "command": "vscode-neovim.escape"
+    }
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true
 }
