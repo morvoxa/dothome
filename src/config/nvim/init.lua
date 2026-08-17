@@ -11,7 +11,7 @@ if vim.g.vscode then
   vim.o.whichwrap = "b,s,<,>,[,],h,l"
   vim.o.autoindent = true
   vim.o.smartindent = true
-  vim.o.timeoutlen = 300
+  vim.o.timeoutlen = 500
   vim.o.laststatus = 0
 
   local vscode = require("vscode")
