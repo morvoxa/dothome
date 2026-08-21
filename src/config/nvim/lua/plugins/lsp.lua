@@ -18,6 +18,7 @@ return {
         nixd = {},
         pyright = {},
         ruff_lsp = {}
+        taplo= {}
       },
     },
   },
