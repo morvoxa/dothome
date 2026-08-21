@@ -17,7 +17,7 @@ return {
         yamlls = {},
         nixd = {},
         pyright = {},
-        ruff_lsp = {}
+        ruff_lsp = {},
         taplo= {}
       },
     },
