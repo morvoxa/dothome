@@ -30,4 +30,4 @@ function Invoke-CmdEnvironment {
 }
 
 Set-Alias -Name runenv -Value Invoke-CmdEnvironment
-runenv "C:\Users\mor\Downloads\MSVC-14.51.36231\MSVC\setup_x64.bat"
+runenv "D:\MSVC-14.51.36231\MSVC\setup_x64.bat"
