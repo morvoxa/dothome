@@ -8,7 +8,7 @@ return {
         lua_ls = {},
         slint_lsp = {},
         --web
-        --pnpm add -g @tailwindcss/language-server @vtsls/language-server eslint_d emmet-ls vscode-langservers-extracted prettier prettierd
+        --pnpm add -g @tailwindcss/language-server @vtsls/language-server eslint_d emmet-ls vscode-langservers-extracted prettier
         tailwindcss = {},
         vtsls = {},
         eslint = {},
