@@ -1,5 +1,5 @@
 $Configs = @(
-    @{ Name = "VSCodium"; Source = "src/config/Code"; Destination = "$HOME\AppData\Roaming\Code"; IsFolder = $true }
+    @{ Name = "Code"; Source = "src/config/Code"; Destination = "$HOME\AppData\Roaming\Code"; IsFolder = $true }
     @{ Name = "neovim"; Source = "src/config/nvim"; Destination = "$HOME\AppData\Local\nvim"; IsFolder = $true }
     @{ Name = "Profile"; Source = "src/WindowsPowerShell"; Destination = "$HOME\Documents\WindowsPowerShell"; IsFolder = $true }
     @{ Name = "GitConfig"; Source = "src/config/gitconfig"; Destination = "$HOME\.gitconfig"; IsFolder = $false }
