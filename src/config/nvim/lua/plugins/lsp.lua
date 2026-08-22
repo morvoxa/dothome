@@ -19,9 +19,7 @@ return {
         --
         yamlls = {},
         nixd = {},
-        jedi_language_server = {}, --uv tool install jedi-language-server
-        ruff = {}, --uv tool install ruff
-        pylyzer = {}, --uv tool install pylyzer
+        pyright = {},
         taplo = {},
       },
     },

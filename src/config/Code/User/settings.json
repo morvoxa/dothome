@@ -59,5 +59,6 @@
     "editor.defaultFormatter": "charliermarsh.ruff",
     "editor.formatOnSave": true
   },
-  "python.languageServer": "Jedi"
+  "python.languageServer": "Pylance",
+  "python.analysis.typeCheckingMode": "strict"
 }
