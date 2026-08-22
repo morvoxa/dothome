@@ -25,6 +25,8 @@
     "comments": "off",
     "strings": "on"
   },
+
+  "chat.disableAIFeatures": true,
   "editor.suggestOnTriggerCharacters": true,
   "editor.acceptSuggestionOnEnter": "on",
   "workbench.startupEditor": "none",
@@ -53,5 +55,9 @@
   "[lua]": {
     "editor.defaultFormatter": "JohnnyMorganz.stylua"
   },
-  "chat.disableAIFeatures": true
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.formatOnSave": true
+  },
+  "python.languageServer": "Jedi"
 }
