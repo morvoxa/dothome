@@ -50,5 +50,8 @@
   "[nix]": {
     "editor.defaultFormatter": "jnoortheen.nix-ide"
   },
-"chat.disableAIFeatures": true,
+  "[lua]": {
+    "editor.defaultFormatter": "JohnnyMorganz.stylua"
+  },
+  "chat.disableAIFeatures": true
 }

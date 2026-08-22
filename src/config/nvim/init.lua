@@ -16,6 +16,9 @@ if vim.g.vscode then
 
   local vscode = require("vscode")
   vim.g.mapleader = " "
+  vim.keymap.set("n", "<leader>r", function()
+    vscode.action("workbench.action.openRecent")
+  end, { desc = "Open Recent Workspaces / Files" })
   vim.keymap.set("n", "<leader>ff", function()
     vscode.action("workbench.action.quickOpen")
   end, { desc = "Find Files" })
