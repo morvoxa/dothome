@@ -19,6 +19,14 @@
       }
     }
   },
+
+  "editor.quickSuggestions": {
+    "other": "on",
+    "comments": "off",
+    "strings": "on"
+  },
+  "editor.suggestOnTriggerCharacters": true,
+  "editor.acceptSuggestionOnEnter": "on",
   "workbench.startupEditor": "none",
   "extensions.experimental.affinity": {
     "asvetliakov.vscode-neovim": 1
