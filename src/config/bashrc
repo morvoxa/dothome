@@ -1,36 +1,37 @@
 # --- PS1 Simple & Minimalis (Fixed) ---
 C_RESET='\[\e[0m\]'
-C_USER='\[\e[1;36m\]'   # Cyan terang (User@Host)
-C_DIR='\[\e[1;34m\]'    # Biru terang (Current Directory)
-C_GIT='\[\e[1;33m\]'    # Kuning (Git Branch)
-C_ERR='\[\e[1;31m\]'    # Merah (Error)
-C_OK='\[\e[1;32m\]'     # Hijau (Sukses)
+C_USER='\[\e[1;36m\]' # Cyan terang (User@Host)
+C_DIR='\[\e[1;34m\]'  # Biru terang (Current Directory)
+C_GIT='\[\e[1;33m\]'  # Kuning (Git Branch)
+C_ERR='\[\e[1;31m\]'  # Merah (Error)
+C_OK='\[\e[1;32m\]'   # Hijau (Sukses)
 
 parse_git_branch() {
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+	git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
 # Menggunakan PROMPT_COMMAND atau fungsi dinamis agar exit code ($?` terdeteksi akurat
 ps1_prompt() {
-    local exit_code=$?
-    local symbol="${C_OK}❯${C_RESET}"
-    
-    if [ $exit_code -ne 0 ]; then
-        symbol="${C_ERR}✖${C_RESET}"
-    fi
+	local exit_code=$?
+	local symbol="${C_OK}❯${C_RESET}"
 
-    PS1="${C_USER}\u@\h${C_RESET}:${C_DIR}\w${C_GIT}\$(parse_git_branch)${C_RESET}\n${symbol} "
+	if [ $exit_code -ne 0 ]; then
+		symbol="${C_ERR}✖${C_RESET}"
+	fi
+
+	PS1="${C_USER}\u@\h${C_RESET}:${C_DIR}\w${C_GIT}\$(parse_git_branch)${C_RESET}\n${symbol} "
 }
 
 PROMPT_COMMAND=ps1_prompt
 add_path() {
-    local target_path="$1"
-    if [ -d "$target_path" ] && [[ ":$PATH:" != *":$target_path:"* ]]; then
-        export PATH="$target_path:$PATH"
-        echo "added: $target_path"
-    elif [ ! -d "$target_path" ]; then
-        echo "Error: Folder '$target_path' not found."
-    fi
+	local target_path="$1"
+	if [ -d "$target_path" ] && [[ ":$PATH:" != *":$target_path:"* ]]; then
+		export PATH="$target_path:$PATH"
+		echo "added: $target_path"
+	elif [ ! -d "$target_path" ]; then
+		echo "Error: Folder '$target_path' not found."
+	fi
 }
 
 add_path "$HOME/.local/bin"
+add_path "$HOME/VSCode-linux-x64/bin"

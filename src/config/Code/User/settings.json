@@ -60,5 +60,8 @@
     "editor.formatOnSave": true
   },
   "python.languageServer": "Pylance",
-  "python.analysis.typeCheckingMode": "strict"
+  "python.analysis.typeCheckingMode": "strict",
+  "[shellscript]": {
+    "editor.defaultFormatter": "mkhl.shfmt"
+  }
 }
