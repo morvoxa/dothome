@@ -3,7 +3,7 @@ $Configs = @(
     @{ Name = "neovim"; Source = "src/config/nvim"; Destination = "$HOME\AppData\Local\nvim"; IsFolder = $true }
     @{ Name = "Profile"; Source = "src/WindowsPowerShell"; Destination = "$HOME\Documents\WindowsPowerShell"; IsFolder = $true }
     @{ Name = "GitConfig"; Source = "src/config/gitconfig"; Destination = "$HOME\.gitconfig"; IsFolder = $false }
-    @{ Name = "wezterm"; Source = "src/wezterm.lua"; Destination = "$HOME\.wezterm.lua"; IsFolder = $false }
+    @{ Name = "wezterm"; Source = "src/config/wezterm/wezterm.lua"; Destination = "$HOME\.wezterm.lua"; IsFolder = $false }
 )
 
 $CurrentDir = Get-Location
