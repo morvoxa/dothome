@@ -85,4 +85,5 @@ if vim.g.vscode then
     require("flash").toggle()
   end, "Toggle Flash Search")
 else
+  require("config.lazy")
 end
