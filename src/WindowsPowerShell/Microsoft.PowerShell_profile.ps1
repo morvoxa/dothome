@@ -31,3 +31,13 @@ function Invoke-CmdEnvironment {
 
 Set-Alias -Name runenv -Value Invoke-CmdEnvironment
 runenv "D:\MSVC-14.51.36231\MSVC\setup_x64.bat"
+
+function rmdir-force {
+    param([string]$Path)
+    if ($Path) {
+        Remove-Item -Path $Path -Recurse -Force
+    } else {
+        Write-Warning "Mohon masukkan path folder yang ingin dihapus."
+    }
+}
+Set-Alias fdel rmdir-force
