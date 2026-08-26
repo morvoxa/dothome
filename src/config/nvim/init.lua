@@ -254,4 +254,6 @@ else
 	vim.lsp.enable("cssls")
 	vim.lsp.enable("jsonls")
 	vim.lsp.enable("oxlint")
+	--zig
+	vim.lsp.enable("zls")
 end
