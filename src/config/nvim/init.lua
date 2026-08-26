@@ -100,6 +100,11 @@ else
 		{ src = "https://github.com/ibhagwan/fzf-lua" },
 		{ src = "https://github.com/romgrk/barbar.nvim" },
 		{ src = "https://github.com/folke/flash.nvim" },
+		{ src = "https://github.com/L3MON4D3/LuaSnip" },
+		{ src = "https://github.com/rafamadriz/friendly-snippets" },
+		{ src = "https://github.com/neovim/nvim-lspconfig" },
+		{ src = "https://github.com/neovim/nvim-lspconfig" },
+		{ src = "https://github.com/tronikelis/ts-autotag.nvim" },
 	})
 	local o = vim.opt
 	local map = vim.api.nvim_set_keymap
@@ -156,22 +161,7 @@ else
 		flash.toggle()
 	end, { desc = "Toggle Flash Search" })
 
-	vim.pack.add({
-		{ src = "https://github.com/stevearc/conform.nvim" },
-		{ src = "https://github.com/saghen/blink.cmp", version = "v1.10.2" },
-		{ src = "https://github.com/mrcjkb/rustaceanvim" },
-		{ src = "https://github.com/romus204/tree-sitter-manager.nvim" },
-		{ src = "https://github.com/windwp/nvim-autopairs" },
-		{ src = "https://github.com/shaunsingh/nord.nvim" },
-		{ src = "https://github.com/nvim-neo-tree/neo-tree.nvim" },
-		{ src = "https://github.com/nvim-lua/plenary.nvim" },
-		{ src = "https://github.com/MunifTanjim/nui.nvim" },
-		{ src = "https://github.com/nvim-tree/nvim-web-devicons" },
-		{ src = "https://github.com/j-hui/fidget.nvim" },
-		{ src = "https://github.com/ibhagwan/fzf-lua" },
-		{ src = "https://github.com/romgrk/barbar.nvim" },
-		{ src = "https://github.com/folke/flash.nvim" },
-	})
+	require("luasnip.loaders.from_vscode").lazy_load()
 	require("neo-tree").setup({
 		window = {
 			position = "left",
@@ -191,8 +181,7 @@ else
 	vim.cmd([[colorscheme nord]])
 	require("nvim-autopairs").setup({})
 	require("tree-sitter-manager").setup({
-		ensure_installed = { "rust", "toml", "lua" },
-		auto_install = false,
+		auto_install = true,
 	})
 	require("blink.cmp").setup({
 		keymap = { preset = "default" },
@@ -218,13 +207,51 @@ else
 			lua = { "stylua" },
 			rust = { "rustfmt" },
 			toml = { "taplo" },
+			sh = { "shfmt" },
+			-- 1. JavaScript / TypeScript & React
+			javascript = { "prettier" },
+			typescript = { "prettier" },
+			javascriptreact = { "prettier" },
+			typescriptreact = { "prettier" },
+			flow = { "prettier" },
+
+			-- 2. Style Sheets
+			css = { "prettier" },
+			scss = { "prettier" },
+			less = { "prettier" },
+
+			-- 3. Frontend Frameworks & Markup
+			html = { "prettier" },
+			vue = { "prettier" },
+			angular = { "prettier" },
+			handlebars = { "prettier" },
+
+			-- 4. Data Formats
 			json = { "prettier" },
 			jsonc = { "prettier" },
-			sh = { "shfmt" },
+			json5 = { "prettier" },
+			yaml = { "prettier" },
+
+			-- 5. Documentation & Query Languages
+			markdown = { "prettier" },
+			mdx = { "prettier" },
+			graphql = { "prettier" },
+			cmake = { "gersemi" },
 		},
 		format_on_save = {
 			timeout_ms = 500,
 			lsp_format = "fallback",
 		},
 	})
+	vim.lsp.enable("clangd")
+	vim.lsp.enable("lua_ls")
+
+	--pnpm add -g @tailwindcss/language-server @vtsls/language-server emmet-ls vscode-langservers-extracted prettier oxlint
+	vim.lsp.enable("tailwindcss")
+	vim.lsp.enable("vtsls")
+	vim.lsp.enable("emmet_ls")
+	vim.lsp.enable("html")
+	vim.lsp.enable("cssls")
+	vim.lsp.enable("jsonls")
+	vim.lsp.enable("oxlint")
 end
