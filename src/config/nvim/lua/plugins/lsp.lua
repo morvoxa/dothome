@@ -21,6 +21,7 @@ return {
         nixd = {},
         pyright = {},
         taplo = {},
+        zls = {},
       },
     },
   },
