@@ -1,0 +1,24 @@
+#!/bin/bash
+
+input="$*"
+
+if [ -z "$input" ]; then
+  read -p "Enter commit message: " input
+fi
+
+scope=$(echo "$input" | awk '{print $1}')
+message=$(echo "$input" | cut -d' ' -f2-)
+formatted_msg="[$scope]: $message"
+
+echo "Proposed commit message:"
+echo "$formatted_msg"
+echo ""
+
+read -p "Do you want to run 'git commit -m \"$formatted_msg\"'? (y/n): " confirm
+
+if [ "$confirm" = "y" ] || [ "$confirm" = "Y" ]; then
+  git commit -m "$formatted_msg"
+  echo "Commit completed."
+else
+  echo "Commit aborted."
+fi
