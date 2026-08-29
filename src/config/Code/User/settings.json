@@ -63,5 +63,7 @@
   "python.analysis.typeCheckingMode": "strict",
   "[shellscript]": {
     "editor.defaultFormatter": "mkhl.shfmt"
-  }
+  },
+  "zig.zls.enabled": "on",
+  "zig.path": "zig"
 }
