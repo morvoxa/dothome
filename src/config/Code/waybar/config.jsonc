@@ -1,0 +1,15 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 30,
+  
+  // Remove all side modules and keep only the clock centered
+  "modules-left": [],
+  "modules-center": ["clock"],
+  "modules-right": [],
+
+  "clock": {
+    "format": "{:%H:%M - %Y-%m-%d}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+  }
+}

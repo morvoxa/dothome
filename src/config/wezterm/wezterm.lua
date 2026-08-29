@@ -31,4 +31,5 @@ config.window_padding = {
 }
 config.use_fancy_tab_bar = false
 config.hide_tab_bar_if_only_one_tab = true
+config.use_resize_increments = true
 return config

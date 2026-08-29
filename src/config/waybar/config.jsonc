@@ -1,0 +1,21 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 34,
+    
+    "modules-left": [],
+    "modules-center": ["clock"],
+    "modules-right": [],
+
+    "clock": {
+        "format": "{:%H:%M}"
+    },
+
+    "network": {
+        "format-wifi": "  {essid}",
+        "format-ethernet": "󰈀  Connected",
+        "format-disconnected": "󰖪  Disconnected",
+        "tooltip-format": "{ipaddr} | {bandwidthUpBytes}up {bandwidthDownBytes}down",
+        "max-length": 30
+    }
+}

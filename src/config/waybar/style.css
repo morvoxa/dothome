@@ -1,0 +1,26 @@
+* {
+    font-family: "JetBrainsMono Nerd Font", sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+window#waybar {
+    background: transparent;
+    color: #a1a1aa;
+}
+
+/* Deep dark capsule style */
+#clock,
+#network {
+    background-color: #09090b; /* Near-black core background */
+    color: #f4f4f5;
+    padding: 0px 10px;
+    margin: 3px 3px;
+    border-radius: 12px;
+    border: 1px solid #27272a; /* Subtle dark border for definition */
+}
+
+#network.disconnected {
+    background-color: #09090b;
+    color: #f87171; /* Muted red for warning */
+}
