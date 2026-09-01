@@ -269,10 +269,6 @@ window-rule {
     match app-id="firefox$" title="^Picture-in-Picture$"
     open-floating true
 }
-window-rule {
-      match app-id=r#".*dev.*"#
-    open-floating true
-}
 // Example: block out two password managers from screen capture.
 // (This example rule is commented out with a "/-" in front.)
 /-window-rule {
@@ -773,4 +769,16 @@ binds {
     Mod+Shift+P {
         power-off-monitors
     }
+}
+window-rule {
+    match app-id=".*dev.*"
+    open-floating true
+}
+window-rule {
+    match app-id=".*demo.*"
+    open-floating true
+}
+window-rule {
+    match app-id=".*test.*"
+    open-floating true
 }
