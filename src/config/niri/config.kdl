@@ -82,7 +82,7 @@ output "HDMI-A-1" {
 // https://niri-wm.github.io/niri/Configuration:-Layout
 layout {
     // Set gaps around windows in logical pixels.
-    gaps 20
+    gaps 24
     // When to center a column when changing focus, options are:
     // - "never", default behavior, focusing an off-screen column will keep at the left
     //   or right edge of the screen.
@@ -216,7 +216,7 @@ layout {
 // which may be more convenient to use.
 // See the binds section below for more spawn examples.
 // This line starts waybar, a commonly used bar for Wayland compositors.
-spawn-at-startup "waybar"
+spawn-at-startup "dbus-launch" "waybar"
 spawn-at-startup "swaybg" "-i" "/home/mor/dothome/src/wap.jpg"
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
@@ -281,7 +281,7 @@ block-out-from "screen-capture"
 // Example: enable rounded corners for all windows.
 // (This example rule is commented out with a "/-" in front.)
 window-rule {
-    geometry-corner-radius 16
+    geometry-corner-radius 12
     clip-to-geometry true
 }
 binds {
