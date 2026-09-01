@@ -34,5 +34,6 @@ add_path() {
 }
 
 add_path "$HOME/.local/bin"
+add_path "$HOME/.cargo/bin"
 alias ls='lsd -al'
 alias cmt='$HOME/dothome/src/commit'
