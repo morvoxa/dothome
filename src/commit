@@ -14,11 +14,13 @@ echo "Proposed commit message:"
 echo "$formatted_msg"
 echo ""
 
-read -p "Do you want to run 'git commit -m \"$formatted_msg\"'? (y/n): " confirm
+read -p "Do you want to run git add, commit, and push? (y/n): " confirm
 
 if [ "$confirm" = "y" ] || [ "$confirm" = "Y" ]; then
+  git add .
   git commit -m "$formatted_msg"
-  echo "Commit completed."
+  git push
+  echo "Git add, commit, and push completed."
 else
-  echo "Commit aborted."
+  echo "Process aborted."
 fi
