@@ -37,3 +37,4 @@ add_path "$HOME/.local/bin"
 add_path "$HOME/VSCode-linux-x64/bin"
 
 alias ls='lsd -al'
+alias cmt='$HOME/dothome/src/commit'
