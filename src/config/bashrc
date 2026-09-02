@@ -41,3 +41,7 @@ alias cmt='$HOME/dothome/src/commit'
 if [[ -z "$TMUX" ]] && [[ "$TERM_PROGRAM" != "vscode" ]]; then
   tmux attach || tmux new-session -s default
 fi
+# Otomatis buat sesi dbus baru jika belum ada saat terminal dibuka
+if [ -z "$DBUS_SESSION_BUS_ADDRESS" ]; then
+  eval "$(dbus-launch --sh-syntax)"
+fi
