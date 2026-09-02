@@ -1,0 +1,4 @@
+[Desktop Entry]
+Type=Application
+Name=Vscode
+Exec=~/.local/bin/code
