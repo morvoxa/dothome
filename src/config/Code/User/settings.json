@@ -26,6 +26,7 @@
     "strings": "on"
   },
   "editor.fontFamily": "'JetBrainsMono NFP','monospace'",
+  "window.zoomLevel": 1,
   "chat.disableAIFeatures": true,
   "editor.suggestOnTriggerCharacters": true,
   "editor.acceptSuggestionOnEnter": "on",

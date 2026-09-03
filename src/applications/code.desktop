@@ -1,4 +1,8 @@
 [Desktop Entry]
 Type=Application
-Name=Vscode
-Exec=~/.local/bin/code
+Name=Code
+Comment=Vscode
+Exec=code
+Icon=utilities-terminal
+Terminal=false
+Categories=Utility;
