@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=pcsx2
+Comment=Vscode
+Exec=pcsx2
+Icon=utilities-terminal
+Terminal=false
+Categories=Utility;
