@@ -42,7 +42,7 @@ require("conform").setup({
 		lua = { "stylua" },
 		python = { "isort", "black" },
 		rust = { "rustfmt", lsp_format = "fallback" },
-		javascript = { "prettierd", "prettier", stop_after_first = true },
+		javascript = { "prettier" },
 	},
 	format_on_save = {
 		timeout_ms = 500,
@@ -116,3 +116,12 @@ require("blink.cmp").setup({
 vim.lsp.enable("clangd")
 vim.lsp.enable("lua_ls")
 vim.lsp.enable("zls")
+--pnpm add -g @tailwindcss/language-server @vtsls/language-server emmet-ls vscode-langservers-extracted prettier oxlint
+vim.lsp.enable("tailwindcss")
+vim.lsp.enable("vtsls")
+vim.lsp.enable("oxlint")
+vim.lsp.enable("emmet_ls")
+vim.lsp.enable("html")
+vim.lsp.enable("cssls")
+vim.lsp.enable("jsonls")
+--pnpm add -g @tailwindcss/language-server @vtsls/language-server emmet-ls vscode-langservers-extracted prettier oxlint
