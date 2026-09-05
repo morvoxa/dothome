@@ -1,0 +1,10 @@
+create vdisk file=C:\masterOS.vhdx maximum=51200 type=fixed
+sel vdisk file=C:\masterOS.vhdx
+attach vdisk
+create partiton primary
+format quick fs=ntfs
+assign letter=V
+
+dism /get-wiminfo /wimfile:D:\sources\install.wim
+dism /apply-image /imagefile:D:\sources\install.wim /index:6 /applydir:V:\
+bcdboot V:\Windows /d
