@@ -30,7 +30,7 @@ function Invoke-CmdEnvironment {
 }
 
 Set-Alias -Name runenv -Value Invoke-CmdEnvironment
-runenv "D:\MSVC-14.51.36231\MSVC\setup_x64.bat"
+runenv "$HOME/Desktop/TMP/MSVC-14.51.36231/MSVC/setup_x64.bat"
 
 function rmdir-force {
     param([string]$Path)
