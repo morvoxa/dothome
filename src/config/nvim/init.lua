@@ -73,8 +73,24 @@ vim.pack.add({
 	{ src = "https://github.com/windwp/nvim-autopairs" },
 	{ src = "https://github.com/j-hui/fidget.nvim" },
 	{ src = "https://github.com/ibhagwan/fzf-lua" },
+	{ src = "https://github.com/romus204/tree-sitter-manager.nvim" },
 	{ src = "https://github.com/Saghen/blink.cmp", version = "v1.10.2" },
 })
+
+require("neo-tree").setup({
+	filesystem = {
+		follow_current_file = {
+			enabled = true,
+			leave_dirs_open = false,
+		},
+		bind_to_cwd = true,
+	},
+})
+require("tree-sitter-manager").setup({
+	auto_install = true,
+	highlight = true,
+})
+
 require("fidget").setup({})
 vim.notify = require("fidget").notify
 require("nvim-autopairs").setup({})
