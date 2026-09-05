@@ -13,6 +13,7 @@ map("n", "<leader>x", ":bdel<cr>", {})
 map("n", "<leader>nh", ":nohl<cr>", {})
 map("n", "<C-l>", "<C-w>l", {})
 map("n", "<C-h>", "<C-w>h", {})
+map("n", "<leader>ff", ":FzfLua files<cr>", {})
 local function toggle_lsp_features()
 	local current_buf = vim.api.nvim_get_current_buf()
 	local current_config = vim.diagnostic.config()
@@ -70,6 +71,7 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-neo-tree/neo-tree.nvim" },
 	{ src = "https://github.com/windwp/nvim-autopairs" },
 	{ src = "https://github.com/j-hui/fidget.nvim" },
+	{ src = "https://github.com/ibhagwan/fzf-lua" },
 	{ src = "https://github.com/Saghen/blink.cmp", version = "v1.10.2" },
 })
 require("fidget").setup({})
