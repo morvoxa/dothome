@@ -4,6 +4,9 @@ o.number = true
 o.relativenumber = true
 o.clipboard = "unnamedplus"
 o.tabstop = 2
+o.ignorecase = true
+o.autoindent = true
+o.smartindent = true
 vim.g.mapleader = " "
 map("i", "jk", "<esc>", {})
 map("n", "<leader>w", ":w<esc>", {})
