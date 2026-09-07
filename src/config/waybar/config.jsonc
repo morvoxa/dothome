@@ -1,21 +1,21 @@
 {
-    "layer": "top",
-    "position": "top",
-    "height": 34,
-    
-    "modules-left": [],
-    "modules-center": ["clock"],
-    "modules-right": [],
+  "layer": "top",
+  "position": "top",
+  "height": 34,
 
-    "clock": {
-        "format": "{:%H:%M}"
-    },
+  "modules-left": [],
+  "modules-center": ["clock"],
+  "modules-right": [],
 
-    "network": {
-        "format-wifi": "  {essid}",
-        "format-ethernet": "󰈀  Connected",
-        "format-disconnected": "󰖪  Disconnected",
-        "tooltip-format": "{ipaddr} | {bandwidthUpBytes}up {bandwidthDownBytes}down",
-        "max-length": 30
-    }
+  "clock": {
+    "format": "{:%H:%M}",
+  },
+
+  "network": {
+    "format-wifi": "  {essid}",
+    "format-ethernet": "󰈀  Connected",
+    "format-disconnected": "󰖪  Disconnected",
+    "tooltip-format": "{ipaddr} | {bandwidthUpBytes}up {bandwidthDownBytes}down",
+    "max-length": 30,
+  },
 }
