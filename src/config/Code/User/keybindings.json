@@ -16,5 +16,11 @@
     "key": "ctrl+y",
     "command": "editor.action.inlineSuggest.commit",
     "when": "inlineSuggestVisible && !editorReadonly"
+  },
+  {
+    "key": "ctrl+p",
+    "command": "workbench.action.terminal.sendSequence",
+    "args": { "text": "\u001b[A" },
+    "when": "terminalFocus"
   }
 ]
