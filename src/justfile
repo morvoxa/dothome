@@ -1,6 +1,0 @@
-default:
-  @just --list
-setup:
-  cmake -B build -G Ninja
-run:
-  cmake --build build;./build/givename
