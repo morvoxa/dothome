@@ -12,8 +12,6 @@ pub fn build(b: *std.Build) void {
             .link_libcpp = true,
         }),
     });
-
-    // 1. Clang membuang fragmen mentah ke folder cache
     exe.root_module.addCSourceFiles(.{
         .files = &.{"src/main.cpp"},
         .flags = &.{
@@ -24,15 +22,9 @@ pub fn build(b: *std.Build) void {
             ".zig-cache/raw_cc.json",
         },
     });
-
+    exe.root_module.addIncludePath(b.path("src/include"));
     b.installArtifact(exe);
-
-    // =========================================================================
-    // STEP TERPISAH: Jalankan ini hanya via 'zig build clangd'
-    // =========================================================================
     const format_step = b.step("clangd", "Format compile_commands.json di root untuk Linux & Windows");
-
-    // Script inline Python aman dengan os.makedirs
     const py_cmd = b.addSystemCommand(&.{
         "python", "-c",
         \\import os
@@ -41,13 +33,8 @@ pub fn build(b: *std.Build) void {
         \\    with open('.zig-cache/raw_cc.json', 'r') as f: content = f.read().strip().rstrip(',')
         \\    with open('compile_commands.json', 'w') as f: f.write(f"[\n{content}\n]\n")
     });
-
-    // Pastikan compile selesai agar fragmen tercipta sebelum diproses Python
     py_cmd.step.dependOn(&exe.step);
     format_step.dependOn(&py_cmd.step);
-    // =========================================================================
-
-    // 2. Setup shortcut "zig build run" (Murni terpisah tanpa menyentuh step clangd)
     const run_cmd = b.addRunArtifact(exe);
     run_cmd.step.dependOn(b.getInstallStep());
 
