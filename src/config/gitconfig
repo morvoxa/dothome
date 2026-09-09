@@ -1,3 +1,5 @@
 [user]
 	email = morvoxadev@gmail.com
 	name = morvoxa 
+[safe]
+	directory = *
