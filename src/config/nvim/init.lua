@@ -85,6 +85,7 @@ if vim.g.vscode then
 		require("flash").toggle()
 	end, "Toggle Flash Search")
 else
+				vim.env.CC = "gcc"
 	local o = vim.opt
 	local map = vim.api.nvim_set_keymap
 	o.number = true
