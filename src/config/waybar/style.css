@@ -9,7 +9,7 @@ window#waybar {
     color: #a1a1aa;
 }
 
-/* Deep dark capsule style */
+/* Deep dark capsule style - REMOVED #workspaces FROM HERE */
 #clock,
 #network {
     background-color: #09090b; /* Near-black core background */
@@ -20,7 +20,36 @@ window#waybar {
     border: 1px solid #27272a; /* Subtle dark border for definition */
 }
 
+/* Plain workspaces container without a capsule box */
+#workspaces {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0px 6px; /* Spacing between the number and the clock */
+}
+
+/* Completely hide inactive workspace buttons */
+#workspaces button:not(.active) {
+    background: transparent;
+    border: none;
+    padding: 0px;
+    margin: 0px;
+    min-width: 0px;
+    min-height: 0px;
+    opacity: 0;
+}
+
+/* Just a plain floating number for the active workspace */
+#workspaces button.active {
+    color: #f4f4f5;
+    background: transparent;
+    border: none;
+    padding: 0px;
+    margin: 0px;
+}
+
 #network.disconnected {
     background-color: #09090b;
     color: #f87171; /* Muted red for warning */
 }
+

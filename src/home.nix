@@ -12,6 +12,7 @@
     pkgs.taplo
     pkgs.just
     pkgs.helix
+    pkgs.wl-clipboard-rs
     pkgs.lsd
     pkgs.unzip
   ];
@@ -28,6 +29,9 @@
   xdg.configFile."helix/config.toml".text = ''
     [keys.insert]
     j = { k = "normal_mode" }
+
+    [editor]
+    clipboard-provider = "wayland"
   '';
 
 }
