@@ -47,7 +47,7 @@
             modules = [
               ./src/hardware-configuration.nix
               ./src/configuration.nix
-              ./src/awesome-wm.nix
+              ./src/hyprland.nix
             ];
 
           };
