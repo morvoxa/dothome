@@ -37,7 +37,7 @@
         homeConfigurations."mor" = inputs.home-manager.lib.homeManagerConfiguration {
           pkgs = inputs.nixpkgs.legacyPackages."x86_64-linux";
           modules = [
-            ./home.nix
+            ./src/home.nix
           ];
         };
 
@@ -45,9 +45,9 @@
           nixos = inputs.nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             modules = [
-              ./hardware-configuration.nix
-              ./configuration.nix
-              ./awesome-wm.nix
+              ./src/hardware-configuration.nix
+              ./src/configuration.nix
+              ./src/awesome-wm.nix
             ];
 
           };
