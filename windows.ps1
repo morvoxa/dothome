@@ -1,5 +1,4 @@
 $Configs = @(
-    @{ Name = "Code"; Source = "src/config/Code"; Destination = "$HOME\AppData\Roaming\Code"; IsFolder = $true }
     @{ Name = "neovim"; Source = "src/config/nvim"; Destination = "$HOME\AppData\Local\nvim"; IsFolder = $true }
     @{ Name = "Alacritty"; Source = "src/config/alacritty"; Destination = "$HOME\AppData\Roaming\alacritty"; IsFolder = $true }
     @{ Name = "Profile"; Source = "src/WindowsPowerShell"; Destination = "$HOME\Documents\WindowsPowerShell"; IsFolder = $true }
