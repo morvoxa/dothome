@@ -4,6 +4,7 @@ $Configs = @(
     @{ Name = "Alacritty"; Source = "src/config/alacritty"; Destination = "$HOME\AppData\Roaming\alacritty"; IsFolder = $true }
     @{ Name = "Profile"; Source = "src/WindowsPowerShell"; Destination = "$HOME\Documents\WindowsPowerShell"; IsFolder = $true }
     @{ Name = "GitConfig"; Source = "src/config/gitconfig"; Destination = "$HOME\.gitconfig"; IsFolder = $false }
+    @{ Name = "Helix"; Source = "src/config/helix"; Destination = "$HOME\AppData\Roaming\helix"; IsFolder = $true }
 )
 
 $CurrentDir = Get-Location
