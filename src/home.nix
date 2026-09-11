@@ -7,9 +7,9 @@
   home.stateVersion = "26.05";
 
   home.packages = [
-    pkgs.nixd
     pkgs.nixfmt
     pkgs.taplo
+    pkgs.stylua
     pkgs.just
     pkgs.helix
     pkgs.wl-clipboard-rs

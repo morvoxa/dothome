@@ -185,7 +185,7 @@ else
 		{ src = "https://github.com/j-hui/fidget.nvim" },
 		{ src = "https://github.com/ibhagwan/fzf-lua" },
 		{ src = "https://github.com/romus204/tree-sitter-manager.nvim" },
-		{ src = "https://github.com/Saghen/blink.cmp",                 version = "v1.10.2" },
+		{ src = "https://github.com/Saghen/blink.cmp", version = "v1.10.2" },
 	})
 
 	require("neo-tree").setup({

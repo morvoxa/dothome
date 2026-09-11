@@ -1,0 +1,6 @@
+[[language]]
+name = "nix"
+formatter = { command = "nixfmt" }
+[[language]]
+name = "lua"
+formatter = { command = "stylua", args = ["-"] }
