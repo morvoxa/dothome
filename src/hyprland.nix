@@ -7,6 +7,8 @@
     waybar
     hyprlauncher
     kitty
+    quickshell
+    jq
   ];
   programs.dconf.enable = true;
 
