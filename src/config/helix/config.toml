@@ -2,6 +2,20 @@
 j = { k = "normal_mode" }
 [keys.normal.space]
 w = [":write", ":fmt"]
+q = [":q"]
+e = [
+  ':sh rm -f /tmp/unique-file',
+  ':insert-output yazi "%{buffer_name}" --chooser-file=/tmp/unique-file',
+  ':sh printf "\x1b[?1049h\x1b[?2004h" > /dev/tty',
+  ':open %sh{cat /tmp/unique-file}',
+  ':redraw',
+]
+# e = [ #windows
+#   ':sh del C:\unique-file',
+#   ':insert-output yazi.exe "%{buffer_name}" --chooser-file=C:\unique-file',
+#   ':open %sh{type C:\unique-file}',
+#   ':redraw',
+# ]
 [editor]
 clipboard-provider = "wayland"
 auto-format = true

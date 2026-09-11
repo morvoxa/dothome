@@ -8,6 +8,7 @@
 
   home.packages = [
     pkgs.nixfmt
+    pkgs.nixd
     pkgs.taplo
     pkgs.stylua
     pkgs.just
@@ -15,6 +16,7 @@
     pkgs.wl-clipboard-rs
     pkgs.lsd
     pkgs.unzip
+    pkgs.yazi
   ];
 
   programs.git = {
