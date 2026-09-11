@@ -6,6 +6,7 @@
     alacritty
     waybar
     hyprlauncher
+    kitty
   ];
   programs.dconf.enable = true;
 
