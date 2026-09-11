@@ -9,23 +9,24 @@ window#waybar {
     color: #a1a1aa;
 }
 
-/* Deep dark capsule style - REMOVED #workspaces FROM HERE */
+/* Capsule style for clock, network, and active workspaces */
 #clock,
-#network {
-    background-color: #09090b; /* Near-black core background */
+#network,
+#workspaces button.active {
+    background-color: #09090b;
     color: #f4f4f5;
     padding: 0px 10px;
     margin: 3px 3px;
     border-radius: 12px;
-    border: 1px solid #27272a; /* Subtle dark border for definition */
+    border: 1px solid #27272a;
 }
 
-/* Plain workspaces container without a capsule box */
+/* Workspaces container */
 #workspaces {
     background: transparent;
     border: none;
     padding: 0;
-    margin: 0px 6px; /* Spacing between the number and the clock */
+    margin: 0px;
 }
 
 /* Completely hide inactive workspace buttons */
@@ -39,17 +40,7 @@ window#waybar {
     opacity: 0;
 }
 
-/* Just a plain floating number for the active workspace */
-#workspaces button.active {
-    color: #f4f4f5;
-    background: transparent;
-    border: none;
-    padding: 0px;
-    margin: 0px;
-}
-
 #network.disconnected {
     background-color: #09090b;
-    color: #f87171; /* Muted red for warning */
+    color: #f87171;
 }
-
