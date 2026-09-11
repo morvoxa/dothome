@@ -3,6 +3,7 @@ j = { k = "normal_mode" }
 [keys.normal.space]
 w = [":write", ":fmt"]
 q = [":q"]
+x = [":buffer-close"]
 e = [
   ':sh rm -f /tmp/unique-file',
   ':insert-output yazi --chooser-file=/tmp/unique-file',
