@@ -1,8 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Code
-Comment=Vscode
-Exec=code
-Icon=utilities-terminal
-Terminal=false
-Categories=Utility;
