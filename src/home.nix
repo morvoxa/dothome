@@ -29,9 +29,11 @@
   xdg.configFile."helix/config.toml".text = ''
     [keys.insert]
     j = { k = "normal_mode" }
-
+    [keys.normal.space]
+    w = [":write",":fmt"]
     [editor]
     clipboard-provider = "wayland"
+    auto-format = true
   '';
   programs.direnv = {
     enable = true;
