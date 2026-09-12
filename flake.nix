@@ -47,7 +47,8 @@
             modules = [
               ./src/hardware-configuration.nix
               ./src/configuration.nix
-              ./src/hyprland.nix
+              # ./src/hyprland.nix
+              ./src/dwm.nix
             ];
 
           };
