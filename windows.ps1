@@ -1,9 +1,8 @@
 $Configs = @(
-    @{ Name = "neovim"; Source = "src/config/nvim"; Destination = "$HOME\AppData\Local\nvim"; IsFolder = $true }
     @{ Name = "Alacritty"; Source = "src/config/alacritty"; Destination = "$HOME\AppData\Roaming\alacritty"; IsFolder = $true }
     @{ Name = "Profile"; Source = "src/WindowsPowerShell"; Destination = "$HOME\Documents\WindowsPowerShell"; IsFolder = $true }
     @{ Name = "GitConfig"; Source = "src/config/gitconfig"; Destination = "$HOME\.gitconfig"; IsFolder = $false }
-    @{ Name = "Helix"; Source = "src/config/helix"; Destination = "$HOME\AppData\Roaming\helix"; IsFolder = $true }
+    @{ Name = "Helix"; Source = "src/helixwindows.toml"; Destination = "$HOME\AppData\Roaming\helix\config.toml"; IsFolder = $false }
 )
 
 $CurrentDir = Get-Location

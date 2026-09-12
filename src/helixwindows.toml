@@ -1,0 +1,15 @@
+[keys.insert]
+j = { k = "normal_mode" }
+[keys.normal.space]
+w = [":write", ":fmt"]
+q = [":q"]
+x = [":buffer-close"]
+e = [
+  ':sh del %%TMP%%\unique-file >NUL 2>&1',
+  ':insert-output start yazi --chooser-file=%%TMP%%\unique-file',
+  ':open %sh{type %%TMP%%\unique-file}',
+  ':redraw',
+]
+[editor]
+clipboard-provider = "windows"
+auto-format = true
