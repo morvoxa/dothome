@@ -3,6 +3,10 @@ name = "nix"
 formatter = { command = "nixfmt" }
 
 [[language]]
+name = "bash"
+formatter = { command = "shfmt" }
+
+[[language]]
 name = "lua"
 formatter = { command = "stylua", args = ["-"] }
 

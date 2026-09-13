@@ -18,6 +18,7 @@
     pkgs.unzip
     pkgs.yazi
     pkgs.fastfetch
+    pkgs.shfmt
   ];
 
   programs.git = {
