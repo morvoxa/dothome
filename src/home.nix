@@ -33,11 +33,24 @@
             ++ [
               pkgs.pkg-config
               pkgs.fish
+              pkgs.uv
+              pkgs.nodejs
+
             ];
           profile = ''
             export FHS=1
           '';
-          runScript = "fish";
+          runScript = ''
+            fish --init-command '
+               functions -c fish_prompt _old_fish_prompt
+               function fish_prompt
+                   set_color --bold yellow
+                   echo -n "(fhs) "
+                   set_color normal
+                   _old_fish_prompt
+               end
+             '
+          '';
           extraOutputsToInstall = [ "dev" ];
         }
       )

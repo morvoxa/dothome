@@ -16,6 +16,11 @@ name = "lua"
 formatter = { command = "stylua", args = ["-"] }
 
 [[language]]
+name = "python"
+roots = [".git"]
+language-servers = ["ruffls"]
+
+[[language]]
 name = "tsx"
 roots = [".git"]
 language-servers = ["oxlint", "vtsls", "emmet-lsp", "tailwindcss-ls"]
@@ -49,3 +54,6 @@ args = ["--lsp"]
 [language-server.tailwindcss-ls]
 command = "tailwindcss-language-server"
 args = ["--stdio"]
+[language-server.ruffls]
+command = "ruff"
+args = ["server"]
