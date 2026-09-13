@@ -1,6 +1,29 @@
 [[language]]
 name = "nix"
 formatter = { command = "nixfmt" }
+
 [[language]]
 name = "lua"
 formatter = { command = "stylua", args = ["-"] }
+
+[[language]]
+name = "tsx"
+roots = [".git"]
+language-servers = ["typescript-language-server", "emmet-lsp", "tailwindcss-ls"]
+
+[[language]]
+name = "html"
+roots = [".git"]
+language-servers = [
+  "vscode-html-language-server",
+  "emmet-lsp",
+  "tailwindcss-ls",
+]
+#LSP
+[language-server.emmet-lsp]
+command = "emmet-language-server"
+args = ["--stdio"]
+
+[language-server.tailwindcss-ls]
+command = "tailwindcss-language-server"
+args = ["--stdio"]
