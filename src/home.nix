@@ -19,6 +19,29 @@
     pkgs.yazi
     pkgs.fastfetch
     pkgs.shfmt
+    (
+      let
+        base = pkgs.appimageTools.defaultFhsEnvArgs;
+      in
+      pkgs.buildFHSEnv (
+        base
+        // {
+          name = "fhs-shell";
+          targetPkgs =
+            pkgs:
+            (base.targetPkgs pkgs)
+            ++ [
+              pkgs.pkg-config
+              pkgs.fish
+            ];
+          profile = ''
+            export FHS=1
+          '';
+          runScript = "fish";
+          extraOutputsToInstall = [ "dev" ];
+        }
+      )
+    )
   ];
 
   programs.git = {
