@@ -3,9 +3,7 @@
 {
   home.username = "mor";
   home.homeDirectory = "/home/mor";
-
   home.stateVersion = "26.05";
-
   home.packages = [
     pkgs.nixfmt
     pkgs.nixd
@@ -19,42 +17,6 @@
     pkgs.yazi
     pkgs.fastfetch
     pkgs.shfmt
-    (
-      let
-        base = pkgs.appimageTools.defaultFhsEnvArgs;
-      in
-      pkgs.buildFHSEnv (
-        base
-        // {
-          name = "fhs-shell";
-          targetPkgs =
-            pkgs:
-            (base.targetPkgs pkgs)
-            ++ [
-              pkgs.pkg-config
-              pkgs.fish
-              pkgs.uv
-              pkgs.nodejs
-
-            ];
-          profile = ''
-            export FHS=1
-          '';
-          runScript = ''
-            fish --init-command '
-               functions -c fish_prompt _old_fish_prompt
-               function fish_prompt
-                   set_color --bold yellow
-                   echo -n "(fhs) "
-                   set_color normal
-                   _old_fish_prompt
-               end
-             '
-          '';
-          extraOutputsToInstall = [ "dev" ];
-        }
-      )
-    )
   ];
 
   programs.git = {
