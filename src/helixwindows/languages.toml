@@ -40,7 +40,7 @@ language-servers = [
 ]
 #LSP
 [language-server.emmet-lsp]
-command = "emmet-language-server"
+command = "emmet-ls"
 args = ["--stdio"]
 
 [language-server.vtsls]
