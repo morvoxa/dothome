@@ -34,8 +34,14 @@
         {
         };
       flake = {
-        homeConfigurations."mor" = inputs.home-manager.lib.homeManagerConfiguration {
-          pkgs = inputs.nixpkgs.legacyPackages."x86_64-linux";
+        homeConfigurations."mor" = home-manager.lib.homeManagerConfiguration {
+
+          pkgs = import inputs.nixpkgs {
+            system = "x86_64-linux";
+            config = {
+              allowUnfree = true;
+            };
+          };
           modules = [
             ./src/home.nix
           ];
@@ -47,8 +53,8 @@
             modules = [
               ./src/hardware-configuration.nix
               ./src/configuration.nix
-              # ./src/hyprland.nix
-              ./src/dwm.nix
+              ./src/hyprland.nix
+              #./src/dwm.nix
             ];
 
           };

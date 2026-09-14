@@ -1,11 +1,13 @@
 { pkgs, ... }:
 
 {
+
   home.username = "mor";
   home.homeDirectory = "/home/mor";
   home.stateVersion = "26.05";
   home.packages = [
     pkgs.nixfmt
+    pkgs.vscode-fhs
     pkgs.nixd
     pkgs.taplo
     pkgs.stylua
