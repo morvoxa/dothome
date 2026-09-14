@@ -1,3 +1,4 @@
+theme = "onedark"
 [keys.insert]
 j = { k = "normal_mode" }
 [keys.normal.space]
