@@ -13,6 +13,7 @@ if vim.g.vscode then
     map("n","H",":lua require('vscode').action('workbench.action.previousEditor')<cr>",{})
     map("n","<leader>x",":lua require('vscode').action('workbench.action.closeActiveEditor')<cr>",{})
     map("n","<leader>r",":lua require('vscode').action('workbench.action.openRecent')<cr>",{})
+    map("n","<leader>e",":lua require('vscode').action('workbench.view.explorer')<cr>",{})
     vim.pack.add({
         {src="https://github.com/folke/flash.nvim"},
     })
