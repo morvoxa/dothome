@@ -20,6 +20,17 @@
     pkgs.fastfetch
     pkgs.shfmt
   ];
+  programs.bash = {
+    enable = true;
+    initExtra = ''
+      # Auto-run Fish shell if it is installed
+      if [ -x "$(command -v fish)" ] && [ "$BASH_EXECUTION_STRING" = "" ]; then
+          exec fish
+      fi
+    '';
+  };
+
+  programs.fish.enable = true;
 
   programs.git = {
     enable = true;
