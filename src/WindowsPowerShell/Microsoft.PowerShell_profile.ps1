@@ -1,4 +1,3 @@
-Invoke-Expression (&starship init powershell)
 function Invoke-GitLazy {
     # Menggabungkan semua argumen yang dikirim
     $inputArgs = $args -join " "
