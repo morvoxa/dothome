@@ -8,7 +8,6 @@
   home.packages = [
     pkgs.nixfmt
     pkgs.neovim
-    pkgs.vscode-fhs
     pkgs.nixd
     pkgs.taplo
     pkgs.stylua
