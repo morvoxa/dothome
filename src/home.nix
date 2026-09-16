@@ -19,6 +19,8 @@
     pkgs.yazi
     pkgs.fastfetch
     pkgs.shfmt
+    pkgs.starship
+    pkgs.fish
   ];
   programs.bash = {
     enable = true;
@@ -29,8 +31,6 @@
       fi
     '';
   };
-
-  programs.fish.enable = true;
 
   programs.git = {
     enable = true;
