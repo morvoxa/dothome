@@ -21,3 +21,4 @@ e = [
 [editor]
 clipboard-provider = "wayland"
 auto-format = true
+true-color = true
