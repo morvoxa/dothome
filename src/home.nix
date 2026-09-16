@@ -44,5 +44,29 @@
     enable = true;
     nix-direnv.enable = true;
   };
+  programs.tmux = {
+    enable = true;
+    shortcut = "a"; # Changes prefix from Ctrl+b to Ctrl+a
+    baseIndex = 1; # Start windows and panes at 1
+    mouse = true; # Enable mouse support
+    keyMode = "vi"; # Vi-style copy mode
+    escapeTime = 0; # Instant response for modal editors like Helix/Vim
+    extraConfig = ''
+      # True color support
+      set -g default-terminal "tmux-256color"
+      set -ga terminal-overrides ",xterm-256color:Tc"
+
+      # Quick configuration reload
+      bind r source-file ~/.config/tmux/tmux.conf \; display "Reloaded!"
+
+      # Split panes using | and - (and stay in current directory)
+      bind | split-window -h -c "#{pane_current_path}"
+      bind - split-window -v -c "#{pane_current_path}"
+      unbind '"'
+      unbind %
+      bind -n M-h previous-window
+      bind -n M-l next-window
+    '';
+  };
 
 }
