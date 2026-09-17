@@ -10,15 +10,15 @@ if vim.g.vscode then
 		"n",
 		"<leader>w",
 		":lua require('vscode').action('workbench.action.files.save')<cr>:lua require('vscode').notify('Saved Succesfully')<cr>",
-		{}
+		{ silent = true }
 	)
-	map("n", "<leader>t", ":lua require('vscode').action('workbench.action.terminal.focus')<cr>", {})
-	map("n", "<leader>nh", ":lua require('vscode').action('notifications.clearAll')<cr>:nohl<cr>", {})
-	map("n", "L", ":lua require('vscode').action('workbench.action.nextEditor')<cr>", {})
-	map("n", "H", ":lua require('vscode').action('workbench.action.previousEditor')<cr>", {})
-	map("n", "<leader>x", ":lua require('vscode').action('workbench.action.closeActiveEditor')<cr>", {})
-	map("n", "<leader>r", ":lua require('vscode').action('workbench.action.openRecent')<cr>", {})
-	map("n", "<leader>e", ":lua require('vscode').action('workbench.view.explorer')<cr>", {})
+	map("n", "<leader>t", ":lua require('vscode').action('workbench.action.terminal.focus')<cr>", { silent = true })
+	map("n", "<leader>nh", ":lua require('vscode').action('notifications.clearAll')<cr>:nohl<cr>", { silent = true })
+	map("n", "L", ":lua require('vscode').action('workbench.action.nextEditor')<cr>", { silent = true })
+	map("n", "H", ":lua require('vscode').action('workbench.action.previousEditor')<cr>", { silent = true })
+	map("n", "<leader>x", ":lua require('vscode').action('workbench.action.closeActiveEditor')<cr>", { silent = true })
+	map("n", "<leader>r", ":lua require('vscode').action('workbench.action.openRecent')<cr>", { silent = true })
+	map("n", "<leader>e", ":lua require('vscode').action('workbench.view.explorer')<cr>", { silent = true })
 	vim.pack.add({
 		{ src = "https://github.com/folke/flash.nvim" },
 	})
