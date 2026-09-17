@@ -1,9 +1,9 @@
 [Desktop Entry]
 Version=1.0
 Type=Application
-Name=code linux
+Name=VSCode
 Comment=download manual
-Exec=code
+Exec=/home/mor/.local/bin/code
 Icon=application-x-executable
 Terminal=false
 Categories=Utility;
