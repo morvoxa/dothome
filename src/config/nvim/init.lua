@@ -80,19 +80,23 @@ else
 	require("conform").setup({
 		formatters_by_ft = {
 			lua = { "stylua" },
+			toml = { "taplo" },
+			bash = { "shfmt" },
+			sh = { "shfmt" },
 			python = { "isort", "black" },
 			rust = { "rustfmt", lsp_format = "fallback" },
 			javascript = { "prettier" },
 		},
 		format_on_save = {
 			timeout_ms = 500,
-			lsp_format = "never",
+			lsp_format = "fallback",
 		},
 	})
 
 	require("nvim-autopairs").setup({})
 	--lsp
 	vim.lsp.enable("lua_ls")
+	vim.lsp.enable("clangd")
 	--plugins keymap
 	map("n", "<leader>e", ":Oil<cr>", {})
 	map("n", "s", '<cmd>lua require("flash").jump()<CR>', { noremap = true, silent = true })
