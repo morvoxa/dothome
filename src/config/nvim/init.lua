@@ -44,12 +44,19 @@ else
 		{ src = "https://github.com/stevearc/oil.nvim" },
 		{ src = "https://github.com/nvim-telescope/telescope.nvim" },
 		{ src = "https://github.com/neovim/nvim-lspconfig" },
+		{ src = "https://github.com/yorumicolors/yorumi.nvim" },
 		{ src = "https://github.com/mrcjkb/rustaceanvim" },
 		{ src = "https://github.com/nvim-lua/plenary.nvim" },
 		{ src = "https://github.com/j-hui/fidget.nvim" },
+		{ src = "https://github.com/romus204/tree-sitter-manager.nvim" },
 		{ src = "https://github.com/saghen/blink.cmp", version = "v1.10.2" },
 	})
+	vim.cmd("colorscheme yorumi")
+	require("tree-sitter-manager").setup({
+		auto_install = true,
+	})
 	require("fidget").setup({})
+	vim.notify = require("fidget").notify
 	require("blink.cmp").setup({
 		keymap = { preset = "default" },
 
