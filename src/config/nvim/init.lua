@@ -23,24 +23,82 @@ if vim.g.vscode then
 		{ src = "https://github.com/folke/flash.nvim" },
 	})
 	vim.api.nvim_set_keymap("n", "s", '<cmd>lua require("flash").jump()<CR>', { noremap = true, silent = true })
-	vim.api.nvim_set_keymap("x", "s", '<cmd>lua require("flash").jump()<CR>', { noremap = true, silent = true })
-	vim.api.nvim_set_keymap("o", "s", '<cmd>lua require("flash").jump()<CR>', { noremap = true, silent = true })
-	vim.api.nvim_set_keymap("n", "S", '<cmd>lua require("flash").treesitter()<CR>', { noremap = true, silent = true })
-	vim.api.nvim_set_keymap("x", "S", '<cmd>lua require("flash").treesitter()<CR>', { noremap = true, silent = true })
-	vim.api.nvim_set_keymap("o", "S", '<cmd>lua require("flash").treesitter()<CR>', { noremap = true, silent = true })
-	vim.api.nvim_set_keymap("o", "r", '<cmd>lua require("flash").remote()<CR>', { noremap = true, silent = true })
-	vim.api.nvim_set_keymap(
-		"o",
-		"R",
-		'<cmd>lua require("flash").treesitter_search()<CR>',
-		{ noremap = true, silent = true }
-	)
-	vim.api.nvim_set_keymap(
-		"x",
-		"R",
-		'<cmd>lua require("flash").treesitter_search()<CR>',
-		{ noremap = true, silent = true }
-	)
-	vim.api.nvim_set_keymap("c", "<c-s>", '<cmd>lua require("flash").toggle()<CR>', { noremap = true, silent = true })
 else
+	local o = vim.o
+	o.number = true
+	o.tabstop = 4
+	o.shiftwidth = 4
+	o.relativenumber = true
+	o.clipboard = "unnamedplus"
+	local map = vim.api.nvim_set_keymap
+	vim.g.mapleader = " "
+	map("i", "jk", "<esc>", {})
+	map("n", "<leader>w", ":w<cr>", {})
+	map("n", "<leader>x", ":bd<cr>", {})
+	map("n", "<leader>q", ":q<cr>", {})
+	map("n", "<leader>nh", ":nohl<cr>", {})
+	vim.pack.add({
+		{ src = "https://github.com/folke/flash.nvim" },
+		{ src = "https://github.com/windwp/nvim-autopairs" },
+		{ src = "https://github.com/stevearc/conform.nvim" },
+		{ src = "https://github.com/stevearc/oil.nvim" },
+		{ src = "https://github.com/nvim-telescope/telescope.nvim" },
+		{ src = "https://github.com/neovim/nvim-lspconfig" },
+		{ src = "https://github.com/mrcjkb/rustaceanvim" },
+		{ src = "https://github.com/nvim-lua/plenary.nvim" },
+		{ src = "https://github.com/j-hui/fidget.nvim" },
+		{ src = "https://github.com/saghen/blink.cmp", version = "v1.10.2" },
+	})
+	require("fidget").setup({})
+	require("blink.cmp").setup({
+		keymap = { preset = "default" },
+
+		appearance = {
+			nerd_font_variant = "mono",
+		},
+
+		completion = {
+			documentation = { auto_show = false },
+		},
+
+		sources = {
+			default = { "lsp", "path", "snippets", "buffer" },
+		},
+
+		fuzzy = {
+			implementation = "prefer_rust_with_warning",
+		},
+	})
+	require("oil").setup({
+		columns = {
+			"permissions",
+			"size",
+			"mtime",
+		},
+	})
+	require("nvim-autopairs").setup()
+	require("conform").setup({
+		formatters_by_ft = {
+			lua = { "stylua" },
+			python = { "isort", "black" },
+			rust = { "rustfmt", lsp_format = "fallback" },
+			javascript = { "prettier" },
+		},
+		format_on_save = {
+			timeout_ms = 500,
+			lsp_format = "never",
+		},
+	})
+
+	require("nvim-autopairs").setup({})
+	--lsp
+	vim.lsp.enable("lua_ls")
+	--plugins keymap
+	map("n", "<leader>e", ":Oil<cr>", {})
+	map("n", "s", '<cmd>lua require("flash").jump()<CR>', { noremap = true, silent = true })
+	local builtin = require("telescope.builtin")
+	vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
+	vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
+	vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
+	vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
 end
