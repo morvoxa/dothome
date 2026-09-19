@@ -27,6 +27,7 @@ else
 	vim.pack.add({
 		{ src = "https://github.com/folke/flash.nvim" },
 		{ src = "https://github.com/windwp/nvim-autopairs" },
+		{ src = "https://github.com/windwp/nvim-ts-autotag" },
 		{ src = "https://github.com/stevearc/conform.nvim" },
 		{ src = "https://github.com/stevearc/oil.nvim" },
 		{ src = "https://github.com/nvim-telescope/telescope.nvim" },
