@@ -24,20 +24,6 @@ if vim.g.vscode then
 	})
 	vim.api.nvim_set_keymap("n", "s", '<cmd>lua require("flash").jump()<CR>', { noremap = true, silent = true })
 else
-	local o = vim.o
-	o.number = true
-	o.tabstop = 4
-	o.shiftwidth = 4
-	o.relativenumber = true
-	o.clipboard = "unnamedplus"
-	local map = vim.api.nvim_set_keymap
-	vim.g.mapleader = " "
-	map("i", "jk", "<esc>", {})
-	map("n", "<leader>w", ":w<cr>", {})
-	map("n", "<leader>x", ":bd<cr>", {})
-	map("n", "<leader>q", ":q<cr>", {})
-	map("n", "<leader>nh", ":nohl<cr>", {})
-	map("n", "<C-h>", "<C-w>w", {})
 	vim.pack.add({
 		{ src = "https://github.com/folke/flash.nvim" },
 		{ src = "https://github.com/windwp/nvim-autopairs" },
@@ -55,76 +41,10 @@ else
 		{ src = "https://github.com/saghen/blink.cmp", version = "v1.10.2" },
 		{ src = "https://github.com/lukas-reineke/indent-blankline.nvim" },
 	})
-	vim.cmd("colorscheme yorumi")
-	require("tiny-inline-diagnostic").setup()
-	require("ibl").setup()
-	vim.diagnostic.config({ virtual_text = false })
-	require("trouble").setup({})
-	require("tree-sitter-manager").setup({
-		auto_install = true,
-	})
-	require("fidget").setup({})
-	vim.notify = require("fidget").notify
-	require("blink.cmp").setup({
-		keymap = { preset = "default" },
-
-		appearance = {
-			nerd_font_variant = "mono",
-		},
-
-		completion = {
-			documentation = { auto_show = false },
-		},
-
-		sources = {
-			default = { "lsp", "path", "snippets", "buffer" },
-		},
-
-		fuzzy = {
-			implementation = "prefer_rust_with_warning",
-		},
-	})
-	require("oil").setup({
-		columns = {
-			"permissions",
-			"size",
-			"mtime",
-		},
-	})
-	require("nvim-autopairs").setup()
-	require("conform").setup({
-		formatters_by_ft = {
-			lua = { "stylua" },
-			toml = { "taplo" },
-			bash = { "shfmt" },
-			sh = { "shfmt" },
-			python = { "isort", "black" },
-			rust = { "rustfmt", lsp_format = "fallback" },
-			javascript = { "prettier" },
-		},
-		format_on_save = {
-			timeout_ms = 500,
-			lsp_format = "fallback",
-		},
-	})
-
-	require("nvim-autopairs").setup({})
-	--lsp
-	vim.lsp.enable("lua_ls")
-	vim.lsp.enable("clangd")
-	--plugins keymap
-	map("n", "<leader>e", ":Oil<cr>", {})
-	map("n", "s", '<cmd>lua require("flash").jump()<CR>', { noremap = true, silent = true })
-	local builtin = require("telescope.builtin")
-	vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
-	vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
-	vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
-	vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
-
-	vim.keymap.set(
-		"n",
-		"<leader>tt",
-		"<cmd>Trouble diagnostics toggle focus=true<cr>",
-		{ silent = true, noremap = true }
-	)
+	require("core.options")
+	require("core.keymaps")
+	require("plugins.blink")
+	require("plugins.conform")
+	require("plugins.lsp")
+	require("plugins.msc")
 end
