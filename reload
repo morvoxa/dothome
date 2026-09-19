@@ -1,31 +1,23 @@
 #!/usr/bin/env bash
 
-# ==============================================================================
-# ⚔  DOTFILES MANAGER (BAT-STYLE BOX • CENTERED)  ⚔
-# ==============================================================================
-
-# Definisi Warna
-R='\033[1;31m' # Red
-G='\033[1;32m' # Green
-C='\033[1;36m' # Cyan
-W='\033[1;37m' # White Bold
-D='\033[0;90m' # Dark Grey (Garis Kotak)
-NC='\033[0m'   # No Color
+R='\033[1;31m'
+G='\033[1;32m'
+C='\033[1;36m'
+W='\033[1;37m'
+D='\033[0;90m'
+NC='\033[0m'
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SOURCE_DIR="$SCRIPT_DIR/src/config"
 TARGET_DIR="$HOME/.config"
 
 if [ ! -d "$SOURCE_DIR" ]; then
-	echo -e "${R}Error: Folder Source tidak ditemukan di $SOURCE_DIR${NC}"
+	echo -e "${R}Error: Folder src not found $SOURCE_DIR${NC}"
 	exit 1
 fi
 
 mkdir -p "$TARGET_DIR"
 
-# --- FUNGSI FORMATTING TENGAH (CENTERED UI) ---
-
-# Disesuaikan presisinya menjadi 58 agar pas dengan total lebar kolom content row
 BOX_WIDTH=58
 
 get_center_padding() {
@@ -55,7 +47,6 @@ print_content_row() {
 	local pad=$(get_center_padding)
 
 	printf "%${pad}s" ""
-	# Total lebar: 1(│) + 2(spaces) + 32 + 1(space) + 20 + 1(space) + 1(│) = 58
 	printf "${D}│${NC}  ${C}%-32s${NC} ${right_color}%-20s${NC} ${D}│${NC}\n" "$left_text" "$right_text"
 }
 
@@ -74,32 +65,23 @@ print_header() {
 }
 
 get_now_seconds() {
-	# Fallback yang aman untuk cross-platform (Linux & macOS) dibanding menggunakan %N
 	date +%s
 }
 
-# --- LOGIKA UTAMA ---
-
 if [ "$1" == "reset" ]; then
-	# ==========================================
-	# FEATURE: RESET MODE
-	# ==========================================
 	print_header "⚡ DOTFILES RESET ENGINE"
 
-	# Reset folder target
 	shopt -s nullglob
 	for dir in "$SOURCE_DIR"/*; do
 		if [ -d "$dir" ]; then
 			folder_name=$(basename "$dir")
 
-			# Pengecualian khusus VS Code & Neovim saat Reset agar tidak merusak local state
 			if [[ "$folder_name" == "Code" || "$folder_name" == "Code - OSS" ]]; then
 				if [ -f "$TARGET_DIR/$folder_name/User/settings.json" ]; then
 					rm -f "$TARGET_DIR/$folder_name/User/settings.json"
 					print_content_row ".config/$folder_name/.../settings.json" "DELETED" "$R"
 				fi
 			elif [[ "$folder_name" == "nvim" ]]; then
-				# Untuk nvim, kita bersihkan konfigurasinya saja, biarkan lockfile/state tetap ada
 				find "$TARGET_DIR/$folder_name" -maxdepth 1 -type f -name "*.lua" -exec rm -f {} \;
 				print_content_row ".config/$folder_name (Config Cleaned)" "RESET" "$R"
 			else
@@ -111,7 +93,6 @@ if [ "$1" == "reset" ]; then
 		fi
 	done
 
-	# Reset dotfiles home
 	shopt -s dotglob nullglob
 	for item in "$SOURCE_DIR"/*; do
 		if [ -f "$item" ]; then
@@ -129,21 +110,16 @@ if [ "$1" == "reset" ]; then
 	exit 0
 
 else
-	# ==========================================
-	# FEATURE: SYNC MODE (REPLACE TOTAL)
-	# ==========================================
 	print_header "⚔  DOTFILES DEPLOYMENT ENGINE"
 
 	start_time=$(get_now_seconds)
 
-	# 1. Mengganti Folder di ~/.config
 	shopt -s nullglob
 	for dir in "$SOURCE_DIR"/*; do
 		if [ -d "$dir" ]; then
 			folder_name=$(basename "$dir")
 			target_path="$TARGET_DIR/$folder_name"
 
-			# CASE 1: VS CODE / CODE - OSS
 			if [[ "$folder_name" == "Code" || "$folder_name" == "Code - OSS" ]]; then
 				mkdir -p "$target_path/User"
 
@@ -161,12 +137,9 @@ else
 
 				print_content_row ".config/$folder_name (Settings)" "UPDATED" "$G"
 
-			# CASE 2: NEOVIM (Safe Merge - Mencegah Crash Lockfile)
 			elif [[ "$folder_name" == "nvim" || "xfce4" ]]; then
 				mkdir -p "$target_path"
 
-				# Copy file konfigurasi baru secara overwrite tanpa menghapus isi folder target (rm -rf)
-				# Gunakan rsync jika ada, atau cp -rf dengan mengabaikan file lockfile dari source jika ada
 				if hash rsync 2>/dev/null; then
 					rsync -av --exclude='*lock.json' --exclude='lazy-lock.json' "$dir/" "$target_path/" &>/dev/null
 				else
@@ -175,7 +148,6 @@ else
 
 				print_content_row ".config/$folder_name (Safe Sync)" "UPDATED" "$G"
 
-			# CASE 3: FOLDER LAIN (Wipe & Replace Murni)
 			else
 				rm -rf "$target_path"
 				mkdir -p "$target_path"
@@ -186,7 +158,6 @@ else
 		fi
 	done
 
-	# 2. Mengganti File Dotfiles di $HOME
 	shopt -s dotglob nullglob
 	for item in "$SOURCE_DIR"/*; do
 		if [ -f "$item" ]; then
@@ -206,13 +177,11 @@ else
 		fi
 	done
 
-	# Tutup panel utama
 	print_border_line "bottom"
 
 	end_time=$(get_now_seconds)
 	duration=$((end_time - start_time))
 
-	# Footer Metadata ringkas
 	echo ""
 	term_width=$(tput cols 2>/dev/null || echo 80)
 	footer_text="Finished in ${duration}s • System Updated"
