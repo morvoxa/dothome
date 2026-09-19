@@ -32,6 +32,7 @@ else
 		{ src = "https://github.com/nvim-telescope/telescope.nvim" },
 		{ src = "https://github.com/neovim/nvim-lspconfig" },
 		{ src = "https://github.com/yorumicolors/yorumi.nvim" },
+		{ src = "https://github.com/shaunsingh/nord.nvim" },
 		{ src = "https://github.com/mrcjkb/rustaceanvim" },
 		{ src = "https://github.com/nvim-lua/plenary.nvim" },
 		{ src = "https://github.com/j-hui/fidget.nvim" },
