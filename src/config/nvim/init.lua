@@ -37,6 +37,7 @@ else
 	map("n", "<leader>x", ":bd<cr>", {})
 	map("n", "<leader>q", ":q<cr>", {})
 	map("n", "<leader>nh", ":nohl<cr>", {})
+	map("n", "<C-h>", "<C-w>w", {})
 	vim.pack.add({
 		{ src = "https://github.com/folke/flash.nvim" },
 		{ src = "https://github.com/windwp/nvim-autopairs" },
@@ -48,10 +49,17 @@ else
 		{ src = "https://github.com/mrcjkb/rustaceanvim" },
 		{ src = "https://github.com/nvim-lua/plenary.nvim" },
 		{ src = "https://github.com/j-hui/fidget.nvim" },
+		{ src = "https://github.com/folke/trouble.nvim" },
+		{ src = "https://github.com/rachartier/tiny-inline-diagnostic.nvim" },
 		{ src = "https://github.com/romus204/tree-sitter-manager.nvim" },
 		{ src = "https://github.com/saghen/blink.cmp", version = "v1.10.2" },
+		{ src = "https://github.com/lukas-reineke/indent-blankline.nvim" },
 	})
 	vim.cmd("colorscheme yorumi")
+	require("tiny-inline-diagnostic").setup()
+	require("ibl").setup()
+	vim.diagnostic.config({ virtual_text = false })
+	require("trouble").setup({})
 	require("tree-sitter-manager").setup({
 		auto_install = true,
 	})
@@ -112,4 +120,11 @@ else
 	vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
 	vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
 	vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
+
+	vim.keymap.set(
+		"n",
+		"<leader>tt",
+		"<cmd>Trouble diagnostics toggle focus=true<cr>",
+		{ silent = true, noremap = true }
+	)
 end
