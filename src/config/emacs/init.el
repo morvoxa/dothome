@@ -84,3 +84,8 @@
 (require 'format-all)
 (add-hook 'prog-mode-hook 'format-all-mode)
 (add-hook 'before-save-hook 'format-all-buffer)
+(add-hook 'format-all-mode-hook 'format-all-ensure-formatter)
+
+(unless (package-installed-p 'rust-mode)
+  (package-install 'rust-mode))
+(require 'rust-mode)
