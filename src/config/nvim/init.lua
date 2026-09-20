@@ -48,5 +48,6 @@ else
 	require("plugins.blink")
 	require("plugins.conform")
 	require("plugins.lsp")
+	require("plugins.snippet")
 	require("plugins.msc")
 end
