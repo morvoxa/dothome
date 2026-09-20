@@ -72,8 +72,33 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
 
+// my tag navigation
+
+void
+prevtag(const Arg *arg) {
+	unsigned int selags = selmon->tagset[selmon->seltags];
+	Arg a = {.ui = selags >> 1};
+	if (!a.ui)
+		a.ui = 1 << (LENGTH(tags) - 1);
+	view(&a);
+}
+
+void
+nexttag(const Arg *arg) {
+	unsigned int selags = selmon->tagset[selmon->seltags];
+	Arg a = {.ui = selags << 1};
+	if (a.ui >= (1 << LENGTH(tags)))
+		a.ui = 1;
+	view(&a);
+}
+//
+
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
+	// my custom key
+	{ MODKEY,                       XK_i,      prevtag,        {0} },
+	{ MODKEY,                       XK_u,      nexttag,        {0} },
+	//
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
