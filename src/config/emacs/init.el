@@ -13,6 +13,11 @@
              '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
 
+(use-package exec-path-from-shell
+  :ensure t
+  :config
+  (exec-path-from-shell-initialize))
+
 
 ;; =============================================================================
 ;; 2. COSMETICS, THEMES, & SYSTEM PREFERENCES
@@ -121,12 +126,10 @@
                       nil t)))
 
 ;; Format-All: Paket pemformat kode otomatis untuk berbagai bahasa pemrograman
-(unless (package-installed-p 'format-all)
-  (package-install 'format-all))
-(require 'format-all)
-(add-hook 'prog-mode-hook 'format-all-mode)
-(add-hook 'before-save-hook 'format-all-buffer)
-(add-hook 'format-all-mode-hook 'format-all-ensure-formatter)
+(use-package apheleia
+  :ensure t
+  :init
+  (apheleia-global-mode 1))
 
 
 ;; =============================================================================
@@ -156,20 +159,58 @@
   (package-install 'zig-mode))
 (require 'zig-mode)
 
-
+;; auto pairs
+(setq electric-pair-pairs
+      '(
+        (?\{ . ?\})
+        (?\' . ?\')
+        (?\` . ?\`)
+        (?\< . ?\>)
+        ))
+(electric-pair-mode 1)
 ;; =============================================================================
-;; 7. COMPLETION ENGINE (CORFU)
+;; 7. COMPLETION ENGINE (CORFU & EGLOT)
 ;; =============================================================================
 
-;; Corfu: Sistem drop-down auto-completion in-buffer yang ringan
 (use-package corfu
   :ensure t
   :custom
   (corfu-auto t)
   (corfu-cycle t)
+  (corfu-auto-delay 0.0)      ; Instan tanpa jeda layaknya VS Code
+  (corfu-auto-prefix 1)       ; Ketik 1 huruf langsung memicu popup
   :bind (:map corfu-map
               ("C-n" . corfu-next)
               ("C-p" . corfu-previous)
               ("C-y" . corfu-insert))
   :init
-  (global-corfu-mode))
+  (global-corfu-mode)
+  (corfu-popupinfo-mode 1))
+
+(unless (package-installed-p 'yasnippet)
+  (package-install 'yasnippet))
+(require 'yasnippet)
+(yas-global-mode 1)
+
+(use-package eglot
+  :ensure nil
+  :config
+  ;; Gunakan setq murni untuk keamanan jalur server
+  (setq eglot-server-programs
+        '((rust-mode . ("rust-analyzer"))
+          (typescript-mode . ("typescript-language-server" "--stdio"))
+          (tsx-ts-mode . ("typescript-language-server" "--stdio"))
+          ((c-mode c++-mode c-ts-mode c++-ts-mode) . ("clangd"))))
+
+  ;; Jembatan filter Corfu agar Eglot tidak menyembunyikan data completion
+  (setq completion-category-overrides '((eglot (styles basic substring)))))
+
+;; =====================================================================
+;; FORCE AUTO-START EGLOT
+;; =====================================================================
+(add-hook 'c-mode-hook #'eglot-ensure)
+(add-hook 'c++-mode-hook #'eglot-ensure)
+(add-hook 'c-ts-mode-hook #'eglot-ensure)
+(add-hook 'c++-ts-mode-hook #'eglot-ensure)
+(add-hook 'tsx-ts-mode-hook #'eglot-ensure)
+(add-hook 'typescript-mode-hook #'eglot-ensure)
