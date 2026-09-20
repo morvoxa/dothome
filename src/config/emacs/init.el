@@ -138,6 +138,7 @@
 
 ;; Tree-Sitter Auto: Penganalisis struktur kode modern untuk syntax highlighting
 (use-package treesit-auto
+  :ensure t
   :custom
   (treesit-auto-install 'prompt)
   :config
@@ -198,8 +199,9 @@
   ;; Gunakan setq murni untuk keamanan jalur server
   (setq eglot-server-programs
         '((rust-mode . ("rust-analyzer"))
-          (typescript-mode . ("typescript-language-server" "--stdio"))
-          (tsx-ts-mode . ("typescript-language-server" "--stdio"))
+          (typescript-mode . ("vtsls" "--stdio"))
+          (tsx-ts-mode . ("vtsls" "--stdio"))
+	  ;;          (html-ts-mode . ("emmet-ls" "--stdio"))
           ((c-mode c++-mode c-ts-mode c++-ts-mode) . ("clangd"))))
 
   ;; Jembatan filter Corfu agar Eglot tidak menyembunyikan data completion
