@@ -1,0 +1,66 @@
+;; Set up package.el to work with MELPA  -*- lexical-binding: t; -*-
+(setq custom-file (locate-user-emacs-file "custom.el"))
+(load custom-file 'noerror)
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/"))
+(package-initialize)
+
+;; Download Evil
+(unless (package-installed-p 'evil)
+  (package-install 'evil))
+(unless (package-installed-p 'atom-dark-theme)
+  (package-install 'atom-dark-theme))
+(load-theme 'atom-dark t)
+;; backup
+(setq backup-directory-alist `(("." . ,(expand-file-name "backups" user-emacs-directory))))
+;;oil
+;; Enable Evil
+(require 'evil)
+(evil-mode 1)
+(set-face-attribute 'default nil :font "JetBrains Mono Nerd Font" :height 120)
+(with-eval-after-load 'evil
+  (evil-set-leader 'normal (kbd "SPC"))
+  (define-key evil-normal-state-map (kbd "<leader> f") 'find-file)
+  (define-key evil-normal-state-map (kbd "<leader> c") 'cd)
+  (define-key evil-normal-state-map (kbd "<leader> r") 'eval-buffer)
+  (define-key evil-normal-state-map (kbd "<leader> s") 'compile)
+  (evil-define-key 'normal 'global (kbd "<leader> x") 'kill-current-buffer)
+  (evil-define-key 'normal 'global (kbd "<leader> q") 'kill-emacs)
+  (define-key evil-insert-state-map (kbd "j k") 'evil-normal-state)
+  (evil-define-key 'normal 'global (kbd "<leader> w") 'save-buffer)
+  (evil-define-key 'normal 'global (kbd "<leader> v") 'other-window))
+;;ido
+(ido-mode 1)
+(with-eval-after-load 'ido
+  ;;(define-key ido-file-completion-map (kbd "RET") 'ido-select-text)
+  (define-key ido-file-completion-map (kbd "TAB") 'ido-complete)
+  (define-key ido-file-completion-map (kbd "RET") 'ido-exit-minibuffer))
+(setq ido-confirm-unique-completion t)
+(setq ido-enable-flex-matching t)
+(with-eval-after-load 'ido
+  ;; 1. Pastikan TAB murni hanya untuk melengkapi teks (tidak membuka apa-apa)
+  (define-key ido-file-completion-map (kbd "TAB") 'ido-complete)
+
+  ;; 2. Modifikasi tombol Enter (RET) agar membuka Dired jika objeknya folder
+  (defun my-ido-smart-enter ()
+    (interactive)
+    (let* ((current-match (car ido-matches))
+           (full-path (if current-match 
+                          (expand-file-name current-match ido-current-directory)
+                        ido-current-directory)))
+      (if (and full-path (file-directory-p full-path))
+          ;; Jika folder, langsung keluar dari minibuffer dan buka via Dired
+          (progn
+            (setq ido-exit 'dired)
+            (exit-minibuffer))
+        ;; Jika file atau teks biasa, jalankan fungsi enter bawaan Ido
+        (ido-exit-minibuffer))))
+
+  ;; Pasang fungsi cerdas ini ke tombol Enter
+  (define-key ido-file-completion-map (kbd "RET") 'my-ido-smart-enter))
+(use-package avy
+  :ensure t
+  :bind
+  (:map evil-normal-state-map
+        ("s" . avy-goto-char-2))) 
