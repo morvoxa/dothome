@@ -29,7 +29,7 @@
   (evil-define-key 'normal 'global (kbd "<leader> q") 'kill-emacs)
   (define-key evil-insert-state-map (kbd "j k") 'evil-normal-state)
   (evil-define-key 'normal 'global (kbd "<leader> w") 'save-buffer)
-  (define-key evil-normal-state-map (kbd "<leader> e") 
+  (define-key evil-normal-state-map (kbd "<leader> e")
 	      (lambda () (interactive) (find-file ".")))
 
   (evil-define-key 'normal 'global (kbd "<leader> v") 'other-window))
@@ -50,13 +50,13 @@
            (target-path (if current-match
                             (expand-file-name current-match ido-current-directory)
                           (expand-file-name typed-input ido-current-directory))))
-      
+
       (cond
        ;; Jika itu direktori, arahkan ke Dired lalu keluar dalam 1x enter
        ((file-directory-p target-path)
         (setq ido-exit 'dired)
         (exit-minibuffer))
-       
+
        ;; Jika file baru atau file biasa, langsung keluar dan buat/buka file
        (t
         (setq ido-exit 'file)
@@ -68,7 +68,7 @@
   :ensure t
   :bind
   (:map evil-normal-state-map
-        ("s" . avy-goto-char-2))) 
+        ("s" . avy-goto-char-2)))
 ;; lisp formater
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
@@ -85,7 +85,22 @@
 (add-hook 'prog-mode-hook 'format-all-mode)
 (add-hook 'before-save-hook 'format-all-buffer)
 (add-hook 'format-all-mode-hook 'format-all-ensure-formatter)
-
+;; tree sitter auto
+(use-package treesit-auto
+  :custom
+  (treesit-auto-install 'prompt)
+  :config
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode))
+;; mode
 (unless (package-installed-p 'rust-mode)
   (package-install 'rust-mode))
 (require 'rust-mode)
+
+(unless (package-installed-p 'typescript-mode)
+  (package-install 'typescript-mode))
+(require 'typescript-mode)
+
+(unless (package-installed-p 'zig-mode)
+  (package-install 'zig-mode))
+(require 'zig-mode)
