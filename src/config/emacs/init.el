@@ -10,6 +10,22 @@
 (setq-default tab-width 2)
 (setq-default evil-shift-width 2)
 (setq-default standard-indent 2)
+
+(defun my/kill-other-buffers ()
+  "Menutup semua buffer file lain, kecuali buffer aktif."
+  (interactive)
+  (let* ((current (current-buffer))
+         (buffers-to-kill
+          (cl-remove-if-not (lambda (buf)
+                              (and (not (eq buf current))
+                                   (buffer-file-name buf)))
+                            (buffer-list))))
+    (if (null buffers-to-kill)
+        (message "Tidak ada buffer lain yang perlu ditutup!")
+      (dolist (buf buffers-to-kill)
+        (kill-buffer buf))
+      (message "Berhasil menutup %d buffer file!" (length buffers-to-kill)))))
+
 ;; EVIL MODE CONFIG
 (use-package evil
   :ensure t
@@ -25,6 +41,7 @@
 									(interactive)
 									(execute-kbd-macro (kbd "M-i"))))
     (define-key evil-normal-state-map (kbd "<leader> r") 'restart-emacs)
+    (define-key evil-normal-state-map (kbd "<leader> k") 'my/kill-other-buffers)
     (define-key evil-normal-state-map (kbd "<leader> c") 'compile)
     (define-key evil-normal-state-map (kbd "<leader> x") 'kill-current-buffer)
     (define-key evil-normal-state-map (kbd "<leader> q") 'about-emacs)
