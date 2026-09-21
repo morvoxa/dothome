@@ -4,198 +4,127 @@
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-;; font fix
+;; FONT CONFIG
 (set-face-attribute 'default nil :font "JetBrains Mono Nerd Font" :height 100)
-;; evil fix fix
-(setq-default tab-width 2)          ; Lebar tampilan karakter tab
-(setq-default evil-shift-width 2)   ; Jarak geser saat pakai << atau >>
+;; INDENT CONFIG
+(setq-default tab-width 2)
+(setq-default evil-shift-width 2)
 (setq-default standard-indent 2)
-
-(defun my-unified-find-file ()
-  (interactive)
-  (let ((locked-dir default-directory))
-    (call-interactively 'find-file)
-    (setq default-directory locked-dir)))
-
-
+;; EVIL MODE CONFIG
 (use-package evil
   :ensure t
   :init
   (evil-mode 1)
   :config
   (with-eval-after-load 'evil
-
-    (define-key evil-insert-state-map (kbd "C-y") nil)
-    (define-key evil-insert-state-map (kbd "C-n") nil)
-    (define-key evil-insert-state-map (kbd "C-p") nil)
+		;; LEADER KEY SPACE
     (evil-set-leader 'normal (kbd "SPC"))
+		;; FIX EVIL TAB
     (define-key evil-insert-state-map (kbd "TAB") 
 								(lambda () 
 									(interactive)
 									(execute-kbd-macro (kbd "M-i"))))
-    (define-key evil-normal-state-map (kbd "<leader> f") 'my-unified-find-file)
-    (define-key evil-normal-state-map (kbd "<leader> o") 'cd)
-    (define-key evil-normal-state-map (kbd "<leader> r") 'eval-buffer)
+    (define-key evil-normal-state-map (kbd "<leader> r") 'restart-emacs)
     (define-key evil-normal-state-map (kbd "<leader> c") 'compile)
-    (define-key evil-normal-state-map (kbd "<tab>") 'indent-for-tab-command)
-    (define-key evil-normal-state-map (kbd "<leader> e") (lambda () (interactive) (find-file "."))))
-  (define-key evil-normal-state-map (kbd "C-i") 'scroll-down-command)
-  (define-key evil-normal-state-map (kbd "<tab>") 'indent-for-tab-command)
-  (evil-define-key 'normal 'global (kbd "<leader> x") 'kill-current-buffer )
-  (evil-define-key 'normal 'global (kbd "<leader> q") 'about-emacs)
-  ;;write
-  (evil-define-key 'normal 'global (kbd "<leader> w") 'save-buffer)
-  (evil-define-key 'normal 'global (kbd "<leader> v") 'other-window))
+    (define-key evil-normal-state-map (kbd "<leader> x") 'kill-current-buffer)
+    (define-key evil-normal-state-map (kbd "<leader> q") 'about-emacs)
+    (define-key evil-normal-state-map (kbd "<leader> w") 'save-buffer)
+    (define-key evil-normal-state-map (kbd "<leader> e") 'dired-jump)
+    (define-key evil-normal-state-map (kbd "<leader> v") 'other-window)))
+;; FZF CONFIG 
+(use-package fzf
+  :ensure t
+  :init
+  (defun my/fzf-project-files ()
+    "Langsung cari file pakai fzf di dalam project root aktif saat ini."
+    (interactive)
+    (if-let ((proj (project-current)))
+        (let ((default-directory (project-root proj)))
+          (fzf-find-file))
+      (fzf-find-file)))
+
+  (with-eval-after-load 'evil
+    (evil-define-key 'normal 'global (kbd "<leader>f") 'my/fzf-project-files))
+
+  :config
+  (setq fzf/window-height 40))
 
 
-
+;; DIRED REMAP
 (require 'dired)
 (put 'dired-find-alternate-file 'disabled nil)
 
 (with-eval-after-load 'dired
-  ;; dired map
-  (define-key dired-mode-map (kbd "a")  #'dired-create-empty-file)
-  (define-key dired-mode-map (kbd "y") #'dired-copy-filename-as-kill)
-  (define-key dired-mode-map (kbd "d") #'dired-do-flag-delete)
-  (define-key dired-mode-map (kbd "u")  #'dired-unmark)
-  
-  (when (bound-and-true-p evil-mode)
-    (evil-define-key 'normal dired-mode-map 
-      (kbd "h") 'dired-up-directory
-      (kbd "l") 'dired-find-alternate-file)))
-;;; auto remove dired buffer
-(defun my-dired-reuse-buffer-advice (orig-fun &rest args)
-  (if (file-directory-p (dired-get-file-for-visit))
-      (dired-find-alternate-file)
-    (apply orig-fun args)))
+	(define-key dired-mode-map (kbd "a")  #'dired-create-empty-file)
+	
+	(when (bound-and-true-p evil-mode)
+		(evil-define-key 'normal dired-mode-map 
+			(kbd "h") 'dired-up-directory
+			(kbd "l") 'dired-find-alternate-file)))
 
-
-
-
-;; j k ke normal mode
+;; JK REMAP 
 (use-package key-chord
-  :ensure t
-  :config
-  (key-chord-mode 1)
-  (key-chord-define evil-insert-state-map "jk" 'evil-normal-state))
+	:ensure t
+	:config
+	(key-chord-mode 1)
+	(key-chord-define evil-insert-state-map "jk" 'evil-normal-state))
 
 
-;; colorshcme
+;; COLOSCHEME
 (load-theme 'modus-vivendi t)
 (setq compile-command "")
-;;ido 
-(require 'ido)
-(ido-mode 1)
-(ido-everywhere 1)
-(setq ido-enable-flex-matching t)
-(setq ido-use-virtual-buffers t)
-
+;; ENV PATH FIX
 (use-package exec-path-from-shell
-  :ensure t
-  :config
-  (exec-path-from-shell-initialize))
+	:ensure t
+	:config
+	(exec-path-from-shell-initialize))
 
 (use-package avy
-  :ensure t
-  :bind
-  (:map evil-normal-state-map
-        ("s" . avy-goto-char-2)))
-;;formtter
+	:ensure t
+	:bind
+	(:map evil-normal-state-map
+				("s" . avy-goto-char-2)))
+;; FORMATTER
 (use-package apheleia
+	:ensure t
+	:init
+	(apheleia-global-mode 1))
+;; AUTO TREESITTER
+(use-package treesit-auto
+	:ensure t
+	:custom
+	(treesit-auto-install 'prompt)
+	:config
+	(treesit-auto-add-to-auto-mode-alist 'all)
+	(global-treesit-auto-mode))
+;; AUTOPAIRS
+(setq electric-pair-pairs
+			'(
+				(?\{ . ?\})
+				(?\' . ?\')
+				(?\` . ?\`)
+				(?\< . ?\>)
+				))
+(electric-pair-mode 1)
+;; COMPILE TRUE COLOR
+
+(use-package xterm-color
   :ensure t
   :init
-  (apheleia-global-mode 1))
-;;tree sitter
-(use-package treesit-auto
-  :ensure t
-  :custom
-  (treesit-auto-install 'prompt)
+  (setq compilation-environment '("TERM=xterm-256color"))
+  
   :config
-  (treesit-auto-add-to-auto-mode-alist 'all)
-  (global-treesit-auto-mode))
-;; auto pairs
-(setq electric-pair-pairs
-      '(
-        (?\{ . ?\})
-        (?\' . ?\')
-        (?\` . ?\`)
-        (?\< . ?\>)
-        ))
-(electric-pair-mode 1)
+  (defun my/xterm-color-compilation-filter (orig-fun proc string)
+    (funcall orig-fun proc (xterm-color-filter string)))
+  
+  (advice-add 'compilation-filter :around #'my/xterm-color-compilation-filter))
+(defun my/switch-to-compilation-window (proc)
+  "Memaksa kursor aktif pindah ke jendela proses kompilasi baru."
+  (run-at-time "0.1 sec" nil
+               (lambda (p)
+                 (let ((win (get-buffer-window (process-buffer p) 'visible)))
+                   (when win
+                     (select-window win))))
+               proc))
 
-
-;;(use-package ivy
-;;:ensure t
-;;:diminish
-;;:config
-;;(ivy-mode 1)
-  ;;;; Mengaktifkan pencocokan fleksibel (mirip flex matching di ido)
-;;(setq ivy-re-builders-alist
-;;'((t . ivy--regex-plus)))
-;;(setq ivy-use-virtual-buffers t)
-;;(setq ivy-count-format "(%d/%d) "))
-;;(use-package counsel
-;;:ensure t
-;;:after ivy
-;;:config
-;;(counsel-mode 1))
-;;(use-package ivy-prescient
-;;:ensure t
-;;:after counsel
-;;:config
-  ;;;; Mengingat riwayat pilihan sebelumnya
-;;(prescient-persist-mode 1)
-;;(ivy-prescient-mode 1))
-;;
-;;(use-package nerd-icons-ivy-rich
-;;:ensure t
-;;:after counsel
-;;:init
-;;(nerd-icons-ivy-rich-mode 1)
-;;(ivy-rich-mode 1))
-
-;;avy
-;;;; completion lsp
-;;(use-package corfu
-;;:ensure t
-;;:custom
-;;(corfu-auto t)
-;;(corfu-cycle t)
-;;(corfu-auto-delay 0.0)      ; Instan tanpa jeda layaknya VS Code
-;;(corfu-auto-prefix 1)       ; Ketik 1 huruf langsung memicu popup
-;;:bind (:map corfu-map
-;;("C-n" . corfu-next)
-;;("C-p" . corfu-previous)
-;;("C-y" . corfu-insert))
-;;:init
-;;(global-corfu-mode)
-;;(corfu-popupinfo-mode 1))
-;;
-;;(unless (package-installed-p 'yasnippet)
-;;(package-install 'yasnippet))
-;;(require 'yasnippet)
-;;(yas-global-mode 1)
-;;
-;;(use-package eglot
-;;:ensure nil
-;;:config
-  ;;;; Gunakan setq murni untuk keamanan jalur server
-;;(setq eglot-server-programs
-;;'((rust-mode . ("rust-analyzer"))
-;;((typescript-ts-mode tsx-ts-mode ) . ("vtsls" "--stdio"))
-;;((  c-ts-mode c++-ts-mode) . ("clangd"))))
-;;
-  ;;;; Jembatan filter Corfu agar Eglot tidak menyembunyikan data completion
-;;(setq completion-category-overrides '((eglot (styles basic substring)))))
-;;
-;;;; =====================================================================
-;;;; FORCE AUTO-START EGLOT
-;;;; =====================================================================
-;;;; Daftarkan semua mode sekaligus dalam sebuah list
-;;(dolist (hook '(c-ts-mode-hook
-;;typescript-ts-mode-hook
-;;rust-mode-hook
-;;tsx-ts-mode-hook
-;;c++-ts-mode-hook))
-;;(add-hook hook #'eglot-ensure))
-;;;;shell exec
+(add-hook 'compilation-start-hook #'my/switch-to-compilation-window)
