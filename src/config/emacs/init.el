@@ -161,3 +161,15 @@
                proc))
 
 (add-hook 'compilation-start-hook #'my/switch-to-compilation-window)
+
+;; COMPILE COMMAND CUSTOMIZE
+(defun my-compile-prompt-advice (orig-fun prompt &rest args)
+  "Mengubah prompt read-shell-command khusus saat kompilasi agar menampilkan pwd."
+  (if (string-prefix-p "Compile command: " prompt)
+      (let* ((clean-pwd (abbreviate-file-name default-directory))
+             (pwd-info (propertize (format " (in %s)" clean-pwd) 'face 'shadow))
+             (new-prompt (format "Compile command%s: " pwd-info)))
+        (apply orig-fun new-prompt args))
+    (apply orig-fun prompt args)))
+
+(advice-add 'read-shell-command :around #'my-compile-prompt-advice)
