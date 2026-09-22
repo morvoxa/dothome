@@ -27,6 +27,21 @@
       (message "Berhasil menutup %d buffer file!" (length buffers-to-kill)))))
 
 ;; EVIL MODE CONFIG
+(defun my/next-file-buffer ()
+  (interactive)
+  (let ((starting-buffer (current-buffer)))
+    (next-buffer)
+    (while (and (not (eq (current-buffer) starting-buffer))
+                (not (buffer-file-name)))
+      (next-buffer))))
+
+(defun my/previous-file-buffer ()
+  (interactive)
+  (let ((starting-buffer (current-buffer)))
+    (previous-buffer)
+    (while (and (not (eq (current-buffer) starting-buffer))
+                (not (buffer-file-name)))
+      (previous-buffer))))
 (use-package evil
   :ensure t
   :init
@@ -40,6 +55,8 @@
 								(lambda () 
 									(interactive)
 									(execute-kbd-macro (kbd "M-i"))))
+		(define-key evil-normal-state-map (kbd "C-l") 'my/next-file-buffer)
+		(define-key evil-normal-state-map (kbd "C-h") 'my/previous-file-buffer)
     (define-key evil-normal-state-map (kbd "<leader> r") 'my/kill-other-buffers)
     (define-key evil-normal-state-map (kbd "<leader> c") 'compile)
     (define-key evil-normal-state-map (kbd "<leader> x") 'kill-current-buffer)
