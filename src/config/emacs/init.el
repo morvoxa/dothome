@@ -136,7 +136,6 @@
 				(?\{ . ?\})
 				(?\' . ?\')
 				(?\` . ?\`)
-				(?\< . ?\>)
 				))
 (electric-pair-mode 1)
 ;; COMPILE TRUE COLOR
@@ -173,3 +172,34 @@
     (apply orig-fun prompt args)))
 
 (advice-add 'read-shell-command :around #'my-compile-prompt-advice)
+
+;; ====================================================================
+;; Konfigurasi Web Development dengan Dukungan Tree-sitter (-ts)
+;; ====================================================================
+
+(use-package company
+  :ensure t
+  :init
+  (global-company-mode 1)
+  :config
+  (setq company-idle-delay 0.0
+        company-minimum-prefix-length 1
+        company-require-match nil
+        company-abort-on-unique-match nil))
+
+(setq-default company-backends '((company-capf :with company-yasnippet)))
+
+(use-package yasnippet
+	:ensure t
+	:config
+	(yas-global-mode 1))
+
+
+(use-package eglot
+	:ensure t
+	:defer t
+	:hook ((html-ts-mode . eglot-ensure)
+				 (tsx-ts-mode . eglot-ensure)
+				 (js-mode . eglot-ensure))
+	:config
+	(add-to-list 'eglot-server-programs '((js-mode tsx-ts-mode html-ts-mode) . ("emmet-language-server" "--stdio"))))
