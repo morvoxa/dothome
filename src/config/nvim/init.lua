@@ -31,17 +31,11 @@ else
 		{ src = "https://github.com/stevearc/conform.nvim" },
 		{ src = "https://github.com/stevearc/oil.nvim" },
 		{ src = "https://github.com/nvim-telescope/telescope.nvim" },
-		{ src = "https://github.com/neovim/nvim-lspconfig" },
-		{ src = "https://github.com/yorumicolors/yorumi.nvim" },
-		{ src = "https://github.com/shaunsingh/nord.nvim" },
-		{ src = "https://github.com/mrcjkb/rustaceanvim" },
 		{ src = "https://github.com/nvim-lua/plenary.nvim" },
-		{ src = "https://github.com/j-hui/fidget.nvim" },
-		{ src = "https://github.com/folke/trouble.nvim" },
-		{ src = "https://github.com/rachartier/tiny-inline-diagnostic.nvim" },
-		{ src = "https://github.com/romus204/tree-sitter-manager.nvim" },
-		{ src = "https://github.com/saghen/blink.cmp", version = "v1.10.2" },
+		{ src = "https://github.com/shaunsingh/nord.nvim" },
 		{ src = "https://github.com/lukas-reineke/indent-blankline.nvim" },
+		{ src = "https://github.com/j-hui/fidget.nvim" },
+		{ src = "https://github.com/romus204/tree-sitter-manager.nvim" },
 	})
 	require("core.options")
 	require("core.keymaps")
@@ -49,8 +43,9 @@ else
 	require("plugins.oil")
 	require("plugins.transparent")
 	require("plugins.treesiter")
-	--	require("plugins.blink")
-	--  require("plugins.lsp")
-	--	require("plugins.snippet")
-	--  require("plugins.msc")
+	require("plugins.msc")
+	--require("plugins.blink")
+	--require("plugins.lsp")
+	--require("plugins.snippet")
+	--require("plugins.msc")
 end

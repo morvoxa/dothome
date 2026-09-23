@@ -1,6 +1,4 @@
-require("tiny-inline-diagnostic").setup()
 require("ibl").setup()
-require("trouble").setup({})
 require("fidget").setup({})
 vim.notify = require("fidget").notify
 require("nvim-autopairs").setup()

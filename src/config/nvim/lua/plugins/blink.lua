@@ -1,3 +1,10 @@
+vim.pack.add({
+	{ src = "https://github.com/neovim/nvim-lspconfig" },
+	{ src = "https://github.com/mrcjkb/rustaceanvim" },
+	{ src = "https://github.com/folke/trouble.nvim" },
+	{ src = "https://github.com/rachartier/tiny-inline-diagnostic.nvim" },
+	{ src = "https://github.com/saghen/blink.cmp", version = "v1.10.2" },
+})
 require("blink.cmp").setup({
 	keymap = { preset = "default" },
 
@@ -17,3 +24,5 @@ require("blink.cmp").setup({
 		implementation = "prefer_rust_with_warning",
 	},
 })
+require("tiny-inline-diagnostic").setup()
+require("trouble").setup({})
