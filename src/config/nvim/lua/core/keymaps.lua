@@ -7,7 +7,6 @@ map("n", "<leader>q", ":q<cr>", {})
 map("n", "<leader>nh", ":nohl<cr>", {})
 map("n", "<C-h>", "<C-w>w", {})
 
-map("n", "<leader>e", ":Oil<cr>", {})
 map("n", "s", '<cmd>lua require("flash").jump()<CR>', { noremap = true, silent = true })
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })

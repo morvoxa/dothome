@@ -1,19 +1,8 @@
 require("tiny-inline-diagnostic").setup()
-vim.diagnostic.config({ virtual_text = false })
 require("ibl").setup()
 require("trouble").setup({})
-require("tree-sitter-manager").setup({
-	auto_install = true,
-})
 require("fidget").setup({})
 vim.notify = require("fidget").notify
-require("oil").setup({
-	columns = {
-		"permissions",
-		"size",
-		"mtime",
-	},
-})
 require("nvim-autopairs").setup()
 require("nvim-ts-autotag").setup({
 	opts = {
@@ -31,13 +20,3 @@ require("nvim-ts-autotag").setup({
 		},
 	},
 })
-
-vim.cmd("colorscheme nord")
-local transparent_groups = {
-	"Normal",
-	"SignColumn",
-}
-
-for _, group in ipairs(transparent_groups) do
-	vim.api.nvim_set_hl(0, group, { bg = "none" })
-end

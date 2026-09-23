@@ -18,6 +18,9 @@ require("conform").setup({
 		scss = { "oxfmt" },
 		markdown = { "oxfmt" },
 		yaml = { "oxfmt" },
+		c = { "clang-format" },
+		cpp = { "clang-format" },
+		h = { "clang-format" },
 	},
 	format_on_save = {
 		timeout_ms = 500,
