@@ -57,6 +57,7 @@
 		(define-key evil-insert-state-map (kbd "C-y") nil)
 		;; LEADER KEY SPACE
     (evil-set-leader 'normal (kbd "SPC"))
+		(evil-set-initial-state 'dired-mode 'normal)
 		;; FIX EVIL TAB
     (define-key evil-insert-state-map (kbd "TAB") 
 								(lambda () 
@@ -65,42 +66,61 @@
 		(define-key evil-normal-state-map (kbd "C-l") 'my/next-file-buffer)
 		(define-key evil-normal-state-map (kbd "C-h") 'my/previous-file-buffer)
     (define-key evil-normal-state-map (kbd "<leader> r") 'my/kill-other-buffers)
-    (define-key evil-normal-state-map (kbd "<leader> c") 'compile)
     (define-key evil-normal-state-map (kbd "<leader> x") 'kill-current-buffer)
     (define-key evil-normal-state-map (kbd "<leader> q") 'about-emacs)
     (define-key evil-normal-state-map (kbd "<leader> w") 'save-buffer)
-    (define-key evil-normal-state-map (kbd "<leader> e") 'dired-jump)
     (define-key minibuffer-local-map (kbd "C-p") 'previous-history-element)
     (define-key minibuffer-local-map (kbd "C-n") 'next-history-element)
     (define-key evil-normal-state-map (kbd "<leader> v") 'other-window)))
-
 ;; ====================================================================
-;; FZF CONFIG 
-(use-package fzf
-  :ensure t
-  :init
-  (defun my/fzf-project-files ()
-    (interactive)
-    (if-let ((proj (project-current)))
-        (let ((default-directory (project-root proj)))
-          (fzf-find-file))
-      (fzf-find-file)))
+;; KEYMAP UNIVERSAL TANPA PAKET TAMBAHAN (Hanya untuk SPC f & SPC c)
+;; ====================================================================
+(defvar my/universal-leader-map (make-sparse-keymap)
+  "Keymap khusus untuk menimpa semua mode di Emacs.")
 
-  (with-eval-after-load 'evil
-    (evil-define-key 'normal 'global (kbd "<leader>f") 'my/fzf-project-files))
-  :config
-  (setq fzf/window-height 40))
+;; Mendaftarkan keymap ini ke tingkat paling tinggi di Emacs
+(add-to-list 'emulation-mode-map-alists
+             `((evil-mode . ,my/universal-leader-map)))
 
+;; Mengisi 2 tombol utama kamu agar menjadi universal
+(define-key my/universal-leader-map (kbd "SPC f") 'find-file)
+(define-key my/universal-leader-map (kbd "SPC c") 'compile)
 ;; ====================================================================
 ;; DIRED REMAP
 (require 'dired)
 (put 'dired-find-alternate-file 'disabled nil)
 (with-eval-after-load 'dired
 	(define-key dired-mode-map (kbd "a")  #'dired-create-empty-file)
-	(when (bound-and-true-p evil-mode)
-		(evil-define-key 'normal dired-mode-map 
-			(kbd "h") 'dired-up-directory
-			(kbd "l") 'dired-find-alternate-file)))
+	(define-key dired-mode-map (kbd "f") nil)
+	(define-key dired-mode-map (kbd "c") nil)
+	(define-key dired-mode-map (kbd "SPC") nil))
+
+;; ====================================================================
+;; FZF CONFIG & IDO
+(ido-mode 1)
+(defun my/ido-custom-keys ()
+	"Konfigurasi remap tombol khusus untuk Ido-mode."
+	(define-key ido-completion-map (kbd "C-n") 'ido-next-match)
+	(define-key ido-completion-map (kbd "C-p") 'ido-prev-match)
+	(define-key ido-completion-map (kbd "RET") 'ido-select-text))
+
+(add-hook 'ido-setup-hook #'my/ido-custom-keys)
+
+;;(use-package fzf
+;;:ensure t
+;;:init
+;;(defun my/fzf-project-files ()
+;;(interactive)
+;;(if-let ((proj (project-current)))
+;;(let ((default-directory (project-root proj)))
+;;(fzf-find-file))
+;;(fzf-find-file)))
+;;
+;;(with-eval-after-load 'evil
+;;(evil-define-key 'normal 'global (kbd "<leader>f") 'my/fzf-project-files))
+;;:config
+;;(setq fzf/window-height 40))
+
 
 ;; ====================================================================
 ;; JK REMAP 
@@ -143,50 +163,50 @@
 ;; ====================================================================
 ;; COMPILE TRUE COLOR
 (use-package xterm-color
-  :ensure t
-  :init
-  (setq compilation-environment '("TERM=xterm-256color"))
-  :config
-  (defun my/xterm-color-compilation-filter (orig-fun proc string)
-    (funcall orig-fun proc (xterm-color-filter string)))
-  (advice-add 'compilation-filter :around #'my/xterm-color-compilation-filter))
+	:ensure t
+	:init
+	(setq compilation-environment '("TERM=xterm-256color"))
+	:config
+	(defun my/xterm-color-compilation-filter (orig-fun proc string)
+		(funcall orig-fun proc (xterm-color-filter string)))
+	(advice-add 'compilation-filter :around #'my/xterm-color-compilation-filter))
 (defun my/switch-to-compilation-window (proc)
-  "Memaksa kursor aktif pindah ke jendela proses kompilasi baru."
-  (run-at-time "0.1 sec" nil
-               (lambda (p)
-                 (let ((win (get-buffer-window (process-buffer p) 'visible)))
-                   (when win
-                     (select-window win))))
-               proc))
+	"Memaksa kursor aktif pindah ke jendela proses kompilasi baru."
+	(run-at-time "0.1 sec" nil
+							 (lambda (p)
+								 (let ((win (get-buffer-window (process-buffer p) 'visible)))
+									 (when win
+										 (select-window win))))
+							 proc))
 (add-hook 'compilation-start-hook #'my/switch-to-compilation-window)
 
 ;; ====================================================================
 ;; COMPILE COMMAND CUSTOMIZE
 (defun my-compile-prompt-advice (orig-fun prompt &rest args)
-  "Mengubah prompt read-shell-command khusus saat kompilasi agar menampilkan pwd."
-  (if (string-prefix-p "Compile command: " prompt)
-      (let* ((clean-pwd (abbreviate-file-name default-directory))
-             (pwd-info (propertize (format " (in %s)" clean-pwd) 'face 'shadow))
-             (new-prompt (format "Compile command%s: " pwd-info)))
-        (apply orig-fun new-prompt args))
-    (apply orig-fun prompt args)))
+	"Mengubah prompt read-shell-command khusus saat kompilasi agar menampilkan pwd."
+	(if (string-prefix-p "Compile command: " prompt)
+			(let* ((clean-pwd (abbreviate-file-name default-directory))
+						 (pwd-info (propertize (format " (in %s)" clean-pwd) 'face 'shadow))
+						 (new-prompt (format "Compile command%s: " pwd-info)))
+				(apply orig-fun new-prompt args))
+		(apply orig-fun prompt args)))
 (advice-add 'read-shell-command :around #'my-compile-prompt-advice)
 ;;FORMATTER
 (use-package apheleia
-:ensure t
-:init
-(apheleia-global-mode +1)
-:config
-(setf (alist-get 'oxfmt apheleia-formatters) 
-'("apheleia-npx" "oxfmt" inplace))
-(setf (alist-get 'js-mode apheleia-mode-alist) 'oxfmt)
-(setf (alist-get 'js-ts-mode apheleia-mode-alist) 'oxfmt)
-(setf (alist-get 'typescript-mode apheleia-mode-alist) 'oxfmt)
-(setf (alist-get 'typescript-ts-mode apheleia-mode-alist) 'oxfmt)
-(setf (alist-get 'tsx-ts-mode apheleia-mode-alist) 'oxfmt)
-(setf (alist-get 'html-ts-mode apheleia-mode-alist) 'oxfmt)
-(setf (alist-get 'json-ts-mode apheleia-mode-alist) 'oxfmt)
-(setf (alist-get 'css-ts-mode apheleia-mode-alist) 'oxfmt))
+	:ensure t
+	:init
+	(apheleia-global-mode +1)
+	:config
+	(setf (alist-get 'oxfmt apheleia-formatters) 
+				'("apheleia-npx" "oxfmt" inplace))
+	(setf (alist-get 'js-mode apheleia-mode-alist) 'oxfmt)
+	(setf (alist-get 'js-ts-mode apheleia-mode-alist) 'oxfmt)
+	(setf (alist-get 'typescript-mode apheleia-mode-alist) 'oxfmt)
+	(setf (alist-get 'typescript-ts-mode apheleia-mode-alist) 'oxfmt)
+	(setf (alist-get 'tsx-ts-mode apheleia-mode-alist) 'oxfmt)
+	(setf (alist-get 'html-ts-mode apheleia-mode-alist) 'oxfmt)
+	(setf (alist-get 'json-ts-mode apheleia-mode-alist) 'oxfmt)
+	(setf (alist-get 'css-ts-mode apheleia-mode-alist) 'oxfmt))
 
 ;; ====================================================================
 ;; Konfigurasi Web Development dengan Dukungan Tree-sitter (-ts)
