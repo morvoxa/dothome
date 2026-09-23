@@ -1,7 +1,6 @@
 ;; -*- lexical-binding: t; -*-
 (setq custom-file (locate-user-emacs-file "custom.el"))
 (load custom-file 'noerror)
-
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 ;; FONT CONFIG
@@ -48,6 +47,7 @@
   (evil-mode 1)
   :config
   (with-eval-after-load 'evil
+		(define-key evil-insert-state-map (kbd "C-y") nil)
 		;; LEADER KEY SPACE
     (evil-set-leader 'normal (kbd "SPC"))
 		;; FIX EVIL TAB
@@ -173,33 +173,71 @@
 
 (advice-add 'read-shell-command :around #'my-compile-prompt-advice)
 
-;; ====================================================================
-;; Konfigurasi Web Development dengan Dukungan Tree-sitter (-ts)
-;; ====================================================================
-
-(use-package company
-  :ensure t
-  :init
-  (global-company-mode 1)
-  :config
-  (setq company-idle-delay 0.0
-        company-minimum-prefix-length 1
-        company-require-match nil
-        company-abort-on-unique-match nil))
-
-(setq-default company-backends '((company-capf :with company-yasnippet)))
-
-(use-package yasnippet
-	:ensure t
-	:config
-	(yas-global-mode 1))
-
-
-(use-package eglot
-	:ensure t
-	:defer t
-	:hook ((html-ts-mode . eglot-ensure)
-				 (tsx-ts-mode . eglot-ensure)
-				 (js-mode . eglot-ensure))
-	:config
-	(add-to-list 'eglot-server-programs '((js-mode tsx-ts-mode html-ts-mode) . ("emmet-language-server" "--stdio"))))
+;;;; ====================================================================
+;;;; Konfigurasi Web Development dengan Dukungan Tree-sitter (-ts)
+;;;; ====================================================================
+;;
+;;;; 1. Setup Corfu (Frontend tampilan popup yang cepat & bersih)
+;;(use-package yasnippet
+;;:ensure t
+;;:config
+;;(yas-global-mode 1))
+;;(use-package yasnippet-snippets
+;;:ensure t
+;;:after yasnippet)
+;;(use-package company
+;;:ensure t
+;;:defer t
+;;:init
+;;(add-hook 'after-init-hook 'global-company-mode)
+;;:config
+;;(setq company-minimum-prefix-length 2
+;;company-idle-delay 0.0)
+;;(define-key company-mode-map (kbd "C-y") 'company-complete-selection)
+;;
+;;
+;;(setq company-backends '((company-capf :with company-yasnippet company-dabbrev-code)
+;;company-files
+;;company-keywords
+;;company-dabbrev))
+;;(add-hook 'eglot-managed-mode-hook
+;;(lambda ()
+;;(setq-local company-backends '((company-capf :with company-yasnippet company-dabbrev-code)
+;;company-files
+;;company-keywords)))))
+;;
+;;(use-package company-box
+;;:ensure t
+;;:after company
+;;:hook (company-mode . company-box-mode))
+;;
+;;(setq-default eglot-workspace-configuration
+;;'((:vtsls ((typescript ((globalTsdk "/usr/local/lib/node_modules/typescript/lib")
+;;(tsdk "node_modules/typescript/lib")))))))
+;;
+;;(use-package eglot
+;;:ensure t
+;;:defer t
+;;:hook ((html-ts-mode . eglot-ensure)
+;;(tsx-ts-mode  . eglot-ensure)
+;;(js-ts-mode   . eglot-ensure)
+;;(js-mode      . eglot-ensure)
+;;(c-ts-mode      . eglot-ensure)
+;;(c++-ts-mode      . eglot-ensure))
+;;:config
+;;(setq-default eglot-workspace-configuration
+;;'((:vtsls ((typescript ((globalTsdk "/usr/local/lib/node_modules/typescript/lib")
+;;(tsdk "node_modules/typescript/lib")))))))
+;;(add-to-list
+;;'eglot-server-programs
+;;'((tsx-ts-mode js-ts-mode js-mode)
+;;. ("typescript-language-server" "--stdio")))
+;;(add-to-list
+;;'eglot-server-programs
+;;'((html-ts-mode)
+;;. ("emmet-language-server" "--stdio")))
+;;(add-to-list
+;;'eglot-server-programs
+;;'((c-ts-mode c++-ts-mode)
+;;. ("clangd"))))
+;;
