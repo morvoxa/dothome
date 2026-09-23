@@ -15,6 +15,8 @@
 (setq-default tab-width 2)
 (setq-default evil-shift-width 2)
 (setq-default standard-indent 2)
+(setq make-backup-files nil)
+
 
 ;; ====================================================================
 ;; EVIL MODE CONFIG
@@ -68,6 +70,8 @@
     (define-key evil-normal-state-map (kbd "<leader> q") 'about-emacs)
     (define-key evil-normal-state-map (kbd "<leader> w") 'save-buffer)
     (define-key evil-normal-state-map (kbd "<leader> e") 'dired-jump)
+    (define-key minibuffer-local-map (kbd "C-p") 'previous-history-element)
+    (define-key minibuffer-local-map (kbd "C-n") 'next-history-element)
     (define-key evil-normal-state-map (kbd "<leader> v") 'other-window)))
 
 ;; ====================================================================
