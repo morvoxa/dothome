@@ -6,10 +6,21 @@ require("conform").setup({
 		sh = { "shfmt" },
 		python = { "isort", "black" },
 		rust = { "rustfmt", lsp_format = "fallback" },
-		javascript = { "prettier" },
+
+		javascript = { "oxfmt" },
+		javascriptreact = { "oxfmt" },
+		typescript = { "oxfmt" },
+		typescriptreact = { "oxfmt" },
+		json = { "oxfmt" },
+		jsonc = { "oxfmt" },
+		html = { "oxfmt" },
+		css = { "oxfmt" },
+		scss = { "oxfmt" },
+		markdown = { "oxfmt" },
+		yaml = { "oxfmt" },
 	},
 	format_on_save = {
 		timeout_ms = 500,
-		lsp_format = "fallback",
+		lsp_format = "never",
 	},
 })
