@@ -119,9 +119,19 @@
 				("s" . avy-goto-char-2)))
 ;; FORMATTER
 (use-package apheleia
-	:ensure t
 	:init
-	(apheleia-global-mode 1))
+  (apheleia-global-mode +1)
+  :config
+  (setf (alist-get 'oxfmt apheleia-formatters) 
+        '("apheleia-npx" "oxfmt" inplace))
+  (setf (alist-get 'js-mode apheleia-mode-alist) 'oxfmt)
+  (setf (alist-get 'js-ts-mode apheleia-mode-alist) 'oxfmt)
+  (setf (alist-get 'typescript-mode apheleia-mode-alist) 'oxfmt)
+  (setf (alist-get 'typescript-ts-mode apheleia-mode-alist) 'oxfmt)
+  (setf (alist-get 'tsx-ts-mode apheleia-mode-alist) 'oxfmt)
+  (setf (alist-get 'html-ts-mode apheleia-mode-alist) 'oxfmt)
+  (setf (alist-get 'json-ts-mode apheleia-mode-alist) 'oxfmt)
+	(setf (alist-get 'css-ts-mode apheleia-mode-alist) 'oxfmt))
 ;; AUTO TREESITTER
 (use-package treesit-auto
 	:ensure t
@@ -173,71 +183,63 @@
 
 (advice-add 'read-shell-command :around #'my-compile-prompt-advice)
 
-;;;; ====================================================================
-;;;; Konfigurasi Web Development dengan Dukungan Tree-sitter (-ts)
-;;;; ====================================================================
-;;
-;;;; 1. Setup Corfu (Frontend tampilan popup yang cepat & bersih)
-;;(use-package yasnippet
-;;:ensure t
-;;:config
-;;(yas-global-mode 1))
-;;(use-package yasnippet-snippets
-;;:ensure t
-;;:after yasnippet)
-;;(use-package company
-;;:ensure t
-;;:defer t
-;;:init
-;;(add-hook 'after-init-hook 'global-company-mode)
-;;:config
-;;(setq company-minimum-prefix-length 2
-;;company-idle-delay 0.0)
-;;(define-key company-mode-map (kbd "C-y") 'company-complete-selection)
-;;
-;;
-;;(setq company-backends '((company-capf :with company-yasnippet company-dabbrev-code)
-;;company-files
-;;company-keywords
-;;company-dabbrev))
-;;(add-hook 'eglot-managed-mode-hook
-;;(lambda ()
-;;(setq-local company-backends '((company-capf :with company-yasnippet company-dabbrev-code)
-;;company-files
-;;company-keywords)))))
-;;
-;;(use-package company-box
-;;:ensure t
-;;:after company
-;;:hook (company-mode . company-box-mode))
-;;
-;;(setq-default eglot-workspace-configuration
-;;'((:vtsls ((typescript ((globalTsdk "/usr/local/lib/node_modules/typescript/lib")
-;;(tsdk "node_modules/typescript/lib")))))))
-;;
-;;(use-package eglot
-;;:ensure t
-;;:defer t
-;;:hook ((html-ts-mode . eglot-ensure)
-;;(tsx-ts-mode  . eglot-ensure)
-;;(js-ts-mode   . eglot-ensure)
-;;(js-mode      . eglot-ensure)
-;;(c-ts-mode      . eglot-ensure)
-;;(c++-ts-mode      . eglot-ensure))
-;;:config
-;;(setq-default eglot-workspace-configuration
-;;'((:vtsls ((typescript ((globalTsdk "/usr/local/lib/node_modules/typescript/lib")
-;;(tsdk "node_modules/typescript/lib")))))))
-;;(add-to-list
-;;'eglot-server-programs
-;;'((tsx-ts-mode js-ts-mode js-mode)
-;;. ("typescript-language-server" "--stdio")))
-;;(add-to-list
-;;'eglot-server-programs
-;;'((html-ts-mode)
-;;. ("emmet-language-server" "--stdio")))
-;;(add-to-list
-;;'eglot-server-programs
-;;'((c-ts-mode c++-ts-mode)
-;;. ("clangd"))))
-;;
+;; ====================================================================
+;; Konfigurasi Web Development dengan Dukungan Tree-sitter (-ts)
+;; ====================================================================
+
+;; 1. Setup Corfu (Frontend tampilan popup yang cepat & bersih)
+(use-package yasnippet
+	:ensure t
+	:config
+	(yas-global-mode 1))
+(use-package yasnippet-snippets
+	:ensure t
+	:after yasnippet)
+(use-package company
+	:ensure t
+	:defer t
+	:init
+	(add-hook 'after-init-hook 'global-company-mode)
+	:config
+	(setq company-minimum-prefix-length 2
+				company-idle-delay 0.0)
+	(define-key company-mode-map (kbd "C-y") 'company-complete-selection)
+
+
+	(setq company-backends '((company-capf :with company-yasnippet company-dabbrev-code)
+													 company-files
+													 company-keywords
+													 company-dabbrev))
+	(add-hook 'eglot-managed-mode-hook
+						(lambda ()
+							(setq-local company-backends '((company-capf :with company-yasnippet company-dabbrev-code)
+																						 company-files
+																						 company-keywords)))))
+
+(use-package company-box
+	:ensure t
+	:after company
+	:hook (company-mode . company-box-mode))
+
+
+(use-package eglot
+	:ensure t
+	:defer t
+	:hook ((html-ts-mode . eglot-ensure)
+				 (tsx-ts-mode  . eglot-ensure)
+				 (js-ts-mode   . eglot-ensure)
+				 (css-ts-mode   . eglot-ensure)
+				 ;;low-level
+				 (c-ts-mode   . eglot-ensure)
+				 (c++-ts-mode      . eglot-ensure))
+	:config
+	(add-to-list
+	 'eglot-server-programs
+	 '((tsx-ts-mode css-ts-mode js-ts-mode html-ts-mode)
+		 . ("emmet-language-server" "--stdio")))
+	(add-to-list
+	 'eglot-server-programs
+	 '((c-ts-mode c++-ts-mode)
+		 . ("clangd"))))
+
+
