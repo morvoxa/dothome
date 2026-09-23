@@ -18,6 +18,8 @@ require("conform").setup({
 		scss = { "oxfmt" },
 		markdown = { "oxfmt" },
 		yaml = { "oxfmt" },
+		svelte = { "oxfmt" },
+
 		c = { "clang-format" },
 		cpp = { "clang-format" },
 		h = { "clang-format" },
