@@ -16,6 +16,8 @@
 (setq-default evil-shift-width 2)
 (setq-default standard-indent 2)
 (setq make-backup-files nil)
+(setq-default display-line-numbers-type 'relative)
+(global-display-line-numbers-mode 1)
 
 
 ;; ====================================================================
@@ -63,6 +65,9 @@
 								(lambda () 
 									(interactive)
 									(execute-kbd-macro (kbd "M-i"))))
+		(define-key evil-normal-state-map (kbd "<leader> f") 'find-file)
+		(define-key evil-normal-state-map (kbd "<leader> c") 'compile)
+		(define-key evil-normal-state-map (kbd "<leader> e") (lambda () (interactive) (find-file ".")))
 		(define-key evil-normal-state-map (kbd "C-l") 'my/next-file-buffer)
 		(define-key evil-normal-state-map (kbd "C-h") 'my/previous-file-buffer)
     (define-key evil-normal-state-map (kbd "<leader> r") 'my/kill-other-buffers)
@@ -72,19 +77,6 @@
     (define-key minibuffer-local-map (kbd "C-p") 'previous-history-element)
     (define-key minibuffer-local-map (kbd "C-n") 'next-history-element)
     (define-key evil-normal-state-map (kbd "<leader> v") 'other-window)))
-;; ====================================================================
-;; KEYMAP UNIVERSAL TANPA PAKET TAMBAHAN (Hanya untuk SPC f & SPC c)
-;; ====================================================================
-(defvar my/universal-leader-map (make-sparse-keymap)
-  "Keymap khusus untuk menimpa semua mode di Emacs.")
-
-;; Mendaftarkan keymap ini ke tingkat paling tinggi di Emacs
-(add-to-list 'emulation-mode-map-alists
-             `((evil-mode . ,my/universal-leader-map)))
-
-;; Mengisi 2 tombol utama kamu agar menjadi universal
-(define-key my/universal-leader-map (kbd "SPC f") 'find-file)
-(define-key my/universal-leader-map (kbd "SPC c") 'compile)
 ;; ====================================================================
 ;; DIRED REMAP
 (require 'dired)
@@ -105,22 +97,6 @@
 	(define-key ido-completion-map (kbd "RET") 'ido-select-text))
 
 (add-hook 'ido-setup-hook #'my/ido-custom-keys)
-
-;;(use-package fzf
-;;:ensure t
-;;:init
-;;(defun my/fzf-project-files ()
-;;(interactive)
-;;(if-let ((proj (project-current)))
-;;(let ((default-directory (project-root proj)))
-;;(fzf-find-file))
-;;(fzf-find-file)))
-;;
-;;(with-eval-after-load 'evil
-;;(evil-define-key 'normal 'global (kbd "<leader>f") 'my/fzf-project-files))
-;;:config
-;;(setq fzf/window-height 40))
-
 
 ;; ====================================================================
 ;; JK REMAP 
@@ -209,6 +185,24 @@
 	(setf (alist-get 'css-ts-mode apheleia-mode-alist) 'oxfmt))
 
 ;; ====================================================================
+
+;;(use-package fzf
+;;:ensure t
+;;:init
+;;(defun my/fzf-project-files ()
+;;(interactive)
+;;(if-let ((proj (project-current)))
+;;(let ((default-directory (project-root proj)))
+;;(fzf-find-file))
+;;(fzf-find-file)))
+;;
+;;(with-eval-after-load 'evil
+;;(evil-define-key 'normal 'global (kbd "<leader>f") 'my/fzf-project-files))
+;;:config
+;;(setq fzf/window-height 40))
+
+
+;; ====================================================================
 ;; Konfigurasi Web Development dengan Dukungan Tree-sitter (-ts)
 ;; ====================================================================
 
@@ -276,6 +270,3 @@
 ;;'eglot-server-programs
 ;;'((c-ts-mode c++-ts-mode)
 ;;. ("clangd"))))
-;;
-;;
-;;
