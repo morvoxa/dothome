@@ -47,7 +47,7 @@ else
 	require("core.keymaps")
 	require("plugins.blink")
 	require("plugins.conform")
-	require("plugins.lsp")
+	--require("plugins.lsp")
 	require("plugins.snippet")
 	require("plugins.msc")
 end

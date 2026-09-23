@@ -6,6 +6,15 @@
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
+;; AUTO TREESITTER
+(use-package treesit-auto
+	:ensure t
+	:custom
+	(treesit-auto-install 'prompt)
+	:config
+	(treesit-auto-add-to-auto-mode-alist 'all)
+	(global-treesit-auto-mode))
+
 ;; ====================================================================
 ;; FONT CONFIG
 (set-face-attribute 'default nil :font "JetBrains Mono Nerd Font" :height 100)
