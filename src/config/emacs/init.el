@@ -171,27 +171,27 @@
         (apply orig-fun new-prompt args))
     (apply orig-fun prompt args)))
 (advice-add 'read-shell-command :around #'my-compile-prompt-advice)
+;;FORMATTER
+(use-package apheleia
+:ensure t
+:init
+(apheleia-global-mode +1)
+:config
+(setf (alist-get 'oxfmt apheleia-formatters) 
+'("apheleia-npx" "oxfmt" inplace))
+(setf (alist-get 'js-mode apheleia-mode-alist) 'oxfmt)
+(setf (alist-get 'js-ts-mode apheleia-mode-alist) 'oxfmt)
+(setf (alist-get 'typescript-mode apheleia-mode-alist) 'oxfmt)
+(setf (alist-get 'typescript-ts-mode apheleia-mode-alist) 'oxfmt)
+(setf (alist-get 'tsx-ts-mode apheleia-mode-alist) 'oxfmt)
+(setf (alist-get 'html-ts-mode apheleia-mode-alist) 'oxfmt)
+(setf (alist-get 'json-ts-mode apheleia-mode-alist) 'oxfmt)
+(setf (alist-get 'css-ts-mode apheleia-mode-alist) 'oxfmt))
 
 ;; ====================================================================
 ;; Konfigurasi Web Development dengan Dukungan Tree-sitter (-ts)
 ;; ====================================================================
 
-;; FORMATTER
-;;(use-package apheleia
-;;:ensure t
-;;:init
-;;(apheleia-global-mode +1)
-;;:config
-;;(setf (alist-get 'oxfmt apheleia-formatters) 
-;;'("apheleia-npx" "oxfmt" inplace))
-;;(setf (alist-get 'js-mode apheleia-mode-alist) 'oxfmt)
-;;(setf (alist-get 'js-ts-mode apheleia-mode-alist) 'oxfmt)
-;;(setf (alist-get 'typescript-mode apheleia-mode-alist) 'oxfmt)
-;;(setf (alist-get 'typescript-ts-mode apheleia-mode-alist) 'oxfmt)
-;;(setf (alist-get 'tsx-ts-mode apheleia-mode-alist) 'oxfmt)
-;;(setf (alist-get 'html-ts-mode apheleia-mode-alist) 'oxfmt)
-;;(setf (alist-get 'json-ts-mode apheleia-mode-alist) 'oxfmt)
-;;(setf (alist-get 'css-ts-mode apheleia-mode-alist) 'oxfmt))
 ;;;; AUTO TREESITTER
 ;;(use-package treesit-auto
 ;;:ensure t
