@@ -32,16 +32,15 @@ else
 		{ src = "https://github.com/stevearc/oil.nvim" },
 		{ src = "https://github.com/nvim-telescope/telescope.nvim" },
 		{ src = "https://github.com/nvim-lua/plenary.nvim" },
-		{ src = "https://github.com/shaunsingh/nord.nvim" },
 		{ src = "https://github.com/lukas-reineke/indent-blankline.nvim" },
 		{ src = "https://github.com/j-hui/fidget.nvim" },
 		{ src = "https://github.com/romus204/tree-sitter-manager.nvim" },
 	})
 	require("core.options")
 	require("core.keymaps")
+	require("plugins.colorscheme")
 	require("plugins.conform")
 	require("plugins.oil")
-	require("plugins.transparent")
 	require("plugins.treesiter")
 	require("plugins.msc")
 	--require("plugins.blink")
