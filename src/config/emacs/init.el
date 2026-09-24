@@ -76,7 +76,7 @@
 									(execute-kbd-macro (kbd "M-i"))))
 		(define-key evil-normal-state-map (kbd "<leader> f") 'find-file)
 		(define-key evil-normal-state-map (kbd "<leader> c") 'compile)
-		(define-key evil-normal-state-map (kbd "<leader> e") (lambda () (interactive) (find-file ".")))
+		;;		(define-key evil-normal-state-map (kbd "<leader> e") (lambda () (interactive) (find-file ".")))
 		(define-key evil-normal-state-map (kbd "C-l") 'my/next-file-buffer)
 		(define-key evil-normal-state-map (kbd "C-h") 'my/previous-file-buffer)
     (define-key evil-normal-state-map (kbd "<leader> r") 'my/kill-other-buffers)
