@@ -43,8 +43,8 @@ else
 	require("plugins.oil")
 	require("plugins.treesiter")
 	require("plugins.msc")
-	--require("plugins.blink")
-	--require("plugins.lsp")
-	--require("plugins.snippet")
-	--require("plugins.msc")
+	require("plugins.blink")
+	require("plugins.lsp")
+	require("plugins.snippet")
+	require("plugins.msc")
 end
