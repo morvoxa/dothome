@@ -1,0 +1,22 @@
+[
+  {
+    "key": "ctrl+h",
+    "command": "workbench.view.explorer"
+  },
+  {
+    "key": "ctrl+y",
+    "command": "acceptSelectedSuggestion",
+    "when": "suggestWidgetVisible && textInputFocus"
+  },
+  {
+    "key": "ctrl+y",
+    "command": "editor.action.inlineSuggest.commit",
+    "when": "inlineSuggestVisible && !editorReadonly"
+  },
+  {
+    "key": "ctrl+p",
+    "command": "workbench.action.terminal.sendSequence",
+    "args": { "text": "\u001b[A" },
+    "when": "terminalFocus"
+  }
+]
