@@ -1,0 +1,7 @@
+kwinoutputconfig.json -- monitor config
+kcminputrc -- keyboard config
+morvoxakde.knsv profile kde
+use kosave to restor 
+pip install kosave
+konsave -i morvoxakde.knsv
+konsave -a morvoxakde
