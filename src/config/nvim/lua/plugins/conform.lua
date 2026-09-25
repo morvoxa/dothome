@@ -2,7 +2,7 @@ require("conform").setup({
 	formatters = {
 		oxfmt = {
 			command = function()
-				local cwd = vim.uv.cwd() or vim.fn.getcwd()
+				local cwd = vim.fn.getcwd()
 				local local_bin = cwd .. "/node_modules/.bin/oxfmt"
 				return local_bin
 			end,
