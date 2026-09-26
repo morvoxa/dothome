@@ -44,3 +44,25 @@ function rmdir-force {
     }
 }
 Set-Alias fdel rmdir-force
+
+$newPaths = @(
+    "$HOME\AppData\Local\pnpm\bin"
+)
+
+# 1. Ambil PATH lama dari User
+$currentPath = [Environment]::GetEnvironmentVariable("Path", "User")
+if ($null -eq $currentPath) { $currentPath = "" }
+
+# 2. Gabungkan secara aman (tanpa regex -split)
+$pathList = $currentPath.Split(';', [System.StringSplitOptions]::RemoveEmptyEntries)
+$updatedPath = ($pathList + $newPaths) | Select-Object -Unique
+
+# 3. Simpan ke Registry secara permanen
+[Environment]::SetEnvironmentVariable("Path", ($updatedPath -join ';'), "User")
+
+# 4. CRITICAL: Perbarui $env:Path milik sesi PowerShell aktif saat ini juga!
+foreach ($path in $newPaths) {
+    if ($env:Path -split ';' -notcontains $path) {
+        $env:Path += ";$path"
+    }
+}
