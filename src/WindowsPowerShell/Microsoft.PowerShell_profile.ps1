@@ -49,7 +49,8 @@ Set-Alias fdel rmdir-force
 $newPaths = @(
     "$HOME\AppData\Local\pnpm\bin",
     "D:\llvm-mingw-20260922-ucrt-x86_64\llvm-mingw-20260922-ucrt-x86_64\bin",
-    "$HOME\scoop\shims"
+    "$HOME\scoop\shims",
+    "$HOME\Desktop\bin"
 )
 
 # 1. Ambil PATH lama dari User
