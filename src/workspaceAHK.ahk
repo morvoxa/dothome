@@ -15,3 +15,5 @@
     else                       ; Otherwise (normal or minimized)
         WinMaximize(activeWin) ; Maximize it
 }
+; Close active window
+#q::WinClose("A")
