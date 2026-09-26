@@ -1,8 +1,9 @@
 $Configs = @(
     @{ Name = "Profile"; Source = "src/WindowsPowerShell"; Destination = "$HOME\Documents\WindowsPowerShell"; IsFolder = $true }
     @{ Name = "GitConfig"; Source = "src/config/gitconfig"; Destination = "$HOME\.gitconfig"; IsFolder = $false }
-    @{ Name = "GitConfig"; Source = "src/config/Code"; Destination = "$HOME\AppData\Roaming\Code"; IsFolder = $true}
-    @{ Name = "GitConfig"; Source = "src/config/nvim"; Destination = "$HOME\AppData\Local\nvim"; IsFolder = $true}
+    @{ Name = "VScode"; Source = "src/config/Code"; Destination = "$HOME\AppData\Roaming\Code"; IsFolder = $true}
+    @{ Name = "nvim"; Source = "src/config/nvim"; Destination = "$HOME\AppData\Local\nvim"; IsFolder = $true}
+    @{ Name = "Alacritty"; Source = "src/config/alacritty"; Destination = "$HOME\AppData\Roaming\alacritty"; IsFolder = $true}
 )
 
 $CurrentDir = Get-Location
