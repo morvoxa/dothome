@@ -32,6 +32,8 @@ require("conform").setup({
 		c = { "clang-format" },
 		cpp = { "clang-format" },
 		h = { "clang-format" },
+
+		kdl = { "kdlfmt" },
 	},
 	format_on_save = {
 		timeout_ms = 500,
