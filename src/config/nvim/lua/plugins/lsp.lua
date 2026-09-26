@@ -1,11 +1,7 @@
 vim.lsp.enable("lua_ls")
 vim.lsp.enable("clangd")
---pnpm add -g @tailwindcss/language-server @vtsls/language-server eslint_d emmet-ls vscode-langservers-extracted prettier oxlint svelte-language-server
+--pnpm add -g @tailwindcss/language-server @vtsls/language-server  emmet-ls  svelte-language-server
 vim.lsp.enable("emmet_ls")
 vim.lsp.enable("tailwindcss")
 vim.lsp.enable("vtsls")
 vim.lsp.enable("svelte")
---vim.lsp.enable("oxlint")
---vim.lsp.enable("html")
---vim.lsp.enable("cssls")
---vim.lsp.enable("jsonls")

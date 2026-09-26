@@ -6,6 +6,7 @@ vim.pack.add({
 	{ src = "https://github.com/saghen/blink.cmp", version = "v1.10.2" },
 })
 require("blink.cmp").setup({
+	snippets = { preset = "luasnip" },
 	keymap = { preset = "default" },
 
 	appearance = {

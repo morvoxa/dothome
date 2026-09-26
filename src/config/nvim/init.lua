@@ -39,12 +39,11 @@ else
 	require("core.options")
 	require("core.keymaps")
 	require("plugins.colorscheme")
+	require("plugins.snippet")
 	require("plugins.conform")
 	require("plugins.oil")
 	require("plugins.treesiter")
 	require("plugins.msc")
 	require("plugins.blink")
 	require("plugins.lsp")
-	require("plugins.snippet")
-	require("plugins.msc")
 end
