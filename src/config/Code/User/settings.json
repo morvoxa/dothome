@@ -1,16 +1,36 @@
 {
+  "nix.enableLanguageServer": true,
+  "nix.serverPath": "nixd",
+  "nix.serverSettings": {
+    "nixd": {
+      "formatting": {
+        "command": ["nixfmt"]
+      },
+      "options": {
+        "nixos": {
+          "expr": "(builtins.getFlake \"/absolute/path/to/flake\").nixosConfigurations.<name>.options"
+        },
+        "home-manager": {
+          "expr": "(builtins.getFlake \"/absolute/path/to/flake\").homeConfigurations.<name>.options"
+        },
+        "nix-darwin": {
+          "expr": "(builtins.getFlake \"${workspaceFolder}/path/to/flake\").darwinConfigurations.<name>.options"
+        }
+      }
+    }
+  },
+
   "editor.quickSuggestions": {
     "other": "on",
     "comments": "off",
     "strings": "on"
   },
+
   "editor.fontFamily": "'JetBrainsMono NFP','monospace'",
   "chat.disableAIFeatures": true,
   "editor.suggestOnTriggerCharacters": true,
   "editor.acceptSuggestionOnEnter": "on",
   "workbench.startupEditor": "none",
-
-  //neovim cofig
   "extensions.experimental.affinity": {
     "asvetliakov.vscode-neovim": 1
   },
@@ -19,7 +39,6 @@
       "command": "vscode-neovim.escape"
     }
   },
-  // formatter config
   "editor.defaultFormatter": "oxc.oxc-vscode",
   "editor.formatOnSave": true,
   "[toml]": {
@@ -44,37 +63,12 @@
     "editor.defaultFormatter": "charliermarsh.ruff",
     "editor.formatOnSave": true
   },
-  //python
   "python.languageServer": "Pylance",
   "python.analysis.typeCheckingMode": "strict",
-  // shell
   "[shellscript]": {
     "editor.defaultFormatter": "mkhl.shfmt"
   },
-  //zig
   "zig.zls.enabled": "on",
   "zig.path": "zig",
-  //svelte
-  "svelte.enable-ts-plugin": true,
-  // nix
-  "nix.enableLanguageServer": true,
-  "nix.serverPath": "nixd",
-  "nix.serverSettings": {
-    "nixd": {
-      "formatting": {
-        "command": ["nixfmt"]
-      },
-      "options": {
-        "nixos": {
-          "expr": "(builtins.getFlake \"/absolute/path/to/flake\").nixosConfigurations.<name>.options"
-        },
-        "home-manager": {
-          "expr": "(builtins.getFlake \"/absolute/path/to/flake\").homeConfigurations.<name>.options"
-        },
-        "nix-darwin": {
-          "expr": "(builtins.getFlake \"${workspaceFolder}/path/to/flake\").darwinConfigurations.<name>.options"
-        }
-      }
-    }
-  }
+  "svelte.enable-ts-plugin": true
 }
