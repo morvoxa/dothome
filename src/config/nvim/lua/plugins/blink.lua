@@ -22,7 +22,7 @@ require("blink.cmp").setup({
 	},
 
 	fuzzy = {
-		implementation = "prefer_rust_with_warning",
+		implementation = "rust",
 	},
 })
 require("tiny-inline-diagnostic").setup()
