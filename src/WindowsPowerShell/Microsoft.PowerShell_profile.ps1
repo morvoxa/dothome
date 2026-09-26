@@ -43,10 +43,13 @@ function rmdir-force {
         Write-Warning "Mohon masukkan path folder yang ingin dihapus."
     }
 }
+
 Set-Alias fdel rmdir-force
 
 $newPaths = @(
-    "$HOME\AppData\Local\pnpm\bin"
+    "$HOME\AppData\Local\pnpm\bin",
+    "D:\llvm-mingw-20260922-ucrt-x86_64\llvm-mingw-20260922-ucrt-x86_64\bin",
+    "$HOME\scoop\shims"
 )
 
 # 1. Ambil PATH lama dari User
@@ -66,3 +69,55 @@ foreach ($path in $newPaths) {
         $env:Path += ";$path"
     }
 }
+
+# Jalur folder utama tempat toolchain Anda berada
+# (Sesuaikan dengan lokasi folder riil tempat file .bat Anda berada)
+$MSVC_BASE_DIR = "D:\MSVC-14.51.36231\MSVC"
+
+function Enable-Msvc {
+    [CmdletBinding()]
+    param()
+
+    # 1. Cek apakah sudah aktif
+    if ($env:MSVC_ENV_ACTIVE -eq "True") {
+        Write-Host "Info: Lingkungan MSVC sudah aktif." -ForegroundColor Yellow
+        return
+    }
+
+    Write-Host "Memuat lingkungan MSVC dan Windows SDK x64..." -ForegroundColor Cyan
+
+    # 2. Backup variable asli terminal
+    $script:Original_Path    = $env:PATH
+    $script:Original_Include = $env:INCLUDE
+    $script:Original_Lib     = $env:LIB
+
+    # 3. Definisikan jalur internal compiler
+    $env:VCToolsInstallDir = "$MSVC_BASE_DIR\VC\Tools\MSVC\14.51.36231\"
+    $env:WindowsSdkBinPath = "$MSVC_BASE_DIR\Windows Kits\10\bin\"
+
+    $msvcBin = "$MSVC_BASE_DIR\VC\Tools\MSVC\14.51.36231\bin\Hostx64\x64"
+    $sdkBin  = "$MSVC_BASE_DIR\Windows Kits\10\bin\10.0.28000.0\x64"
+    $ucrtBin = "$MSVC_BASE_DIR\Windows Kits\10\bin\10.0.28000.0\x64\ucrt"
+
+    # 4. Terapkan Environment Baru
+    $env:PATH = "$msvcBin;$sdkBin;$ucrtBin;$env:PATH"
+
+    $env:INCLUDE = @(
+        "$MSVC_BASE_DIR\VC\Tools\MSVC\14.51.36231\include",
+        "$MSVC_BASE_DIR\Windows Kits\10\Include\10.0.28000.0\ucrt",
+        "$MSVC_BASE_DIR\Windows Kits\10\Include\10.0.28000.0\shared",
+        "$MSVC_BASE_DIR\Windows Kits\10\Include\10.0.28000.0\um",
+        "$MSVC_BASE_DIR\Windows Kits\10\Include\10.0.28000.0\winrt",
+        "$MSVC_BASE_DIR\Windows Kits\10\Include\10.0.28000.0\cppwinrt"
+    ) -join ';'
+
+    $env:LIB = @(
+        "$MSVC_BASE_DIR\VC\Tools\MSVC\14.51.36231\lib\x64",
+        "$MSVC_BASE_DIR\Windows Kits\10\Lib\10.0.28000.0\ucrt\x64",
+        "$MSVC_BASE_DIR\Windows Kits\10\Lib\10.0.28000.0\um\x64"
+    ) -join ';'
+
+    $env:MSVC_ENV_ACTIVE = "True"
+    Write-Host "Sukses: Lingkungan MSVC Aktif! cl.exe siap digunakan." -ForegroundColor Green
+}
+Enable-Msvc
